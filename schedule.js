@@ -62,14 +62,14 @@ function runTimeStaple() {
 }	
 
 
-function generateDateHeader (date) {
+function generateDateHeader (today) {
 	//var date = new Date();
-	var weekday = ["SÖNDAG", "MÅNDAG", "TISDAG", "ONSDAG", "TORSDAG", "FREDAG", "LÖRDAG"][date.getDay()];
-	var day = date.getDay();
+	var weekday = ["SÖNDAG", "MÅNDAG", "TISDAG", "ONSDAG", "TORSDAG", "FREDAG", "LÖRDAG"][today.getDay()];
+	var date = today.getDate();
 	console.log(date);
-	var month = ["JANUARI", "FEBRUARI", "MARS", "APRIL", "MAJ", "JUNI", "JULI", "AUGUSTI", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"][date.getMonth()];
+	var month = ["JANUARI", "FEBRUARI", "MARS", "APRIL", "MAJ", "JUNI", "JULI", "AUGUSTI", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"][today.getMonth()];
 	//document.getElementById("heading").innerHTML = weekday + "    " + day + " " + month;
-	document.getElementById("heading").innerHTML = weekday + "    " + "30" + " " + month;
+	document.getElementById("heading").innerHTML = weekday + " " + date + " " + month;
 }
 
 function getStationInput() {
@@ -474,12 +474,12 @@ function resizeUpdateContainer () {
 }
 
 window.onload = function initiate() {
-	var date = new Date();
-	generateDay(date.getDay());
+	var today = new Date();
+	generateDay(today.getDay());
 	resizeUpdateContainer();
 	adjustTimeStapleSections();
 	fillTimeStaple();
-	//runTimeStaple();
+	runTimeStaple();
 	//document.getElementById("clear").style.display = "none";
 	//document.getElementById("input").style.display = "none";
 	document.getElementById("update-container").style.visibility = "hidden";
