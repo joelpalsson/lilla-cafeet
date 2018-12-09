@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf8" />
+
+	<title>Update</title>
+
+	<link rel="stylesheet" href="update.css">
+
+	<script src="update.js"></script>
+
+</head>
+
+<body id="body">
+	<!-- update container -->
+	<div id="update-container">
+
+		<div class="submit">
+			<button type="button" onclick="generateDayButtonClick()">Generera dag</button>
+		</div>
+
+
+		<h2>Rensa</h2>
+
+		<p>Arbetspass:</p>
+		<div id="period_reset">
+			<select id="periods_reset">
+				<option value="am">Förmiddag</Option>
+				<option value="lunch">Lunch</Option>
+				<option value="pm">Eftremiddag</Option>
+			</select>
+		</div>
+
+
+		<br>
+		<br>
+
+		<div class="submit">
+			<button type="button" onclick="clearButtonClick()">Rensa</button>
+		</div>
+
+		<br>
+		<br>
+
+
+		<h2>Uppdatera</h2>
+
+		<div id="station_update">
+			<p>Arbetsstation:</p>
+			<select id="stations_update" autofocus>
+				<option value="laundry">Tvätta</option>
+				<option value="cleaning_upstairs">Städa övervåning</option>
+				<option value="cleaning_downstairs">Städa caféet</option>
+				<option value="baking_upstairs">Baka på övervåningen</option>
+				<option value="baking_downstairs">Baka i caféet</option>
+				<option value="sandwiches">Mackor & kakor</option>
+				<option value="serving_1">Servera 1</option>
+				<option value="serving_2">Servera 2</option>
+				<option value="serving_3">Servera 3</option>
+				<option value="counter">Kassa</option>
+				<option value="washing">Diska</option>
+				<option value="catering">Catering</option>
+				<option value="individual">Individuella uppgifter</option>
+			</select>
+		</div>
+
+
+		<div id="name_enter">
+			<p>Namn:</p>
+			<form id="name_input">
+		 		<input type="text" name="name"><br>
+			</form>
+		</div>
+			
+
+		<div class="starttime">
+			<p>Starttid:</p>
+			<select id="start_hour">
+				<option value="9">09</Option>
+				<option value="10">10</Option>
+				<option value="11">11</Option>
+				<option value="12">12</Option>
+				<option value="13">13</Option>
+				<option value="14">14</Option>
+				<option value="15">15</Option>
+				<option value="16">16</Option>
+			</select>
+
+			<select id="start_minute">
+				<option value="0">00</Option>
+				<option value="15">15</Option>
+				<option value="30">30</Option>
+			</select>
+		</div>
+
+
+		<div class="endtime">
+			<p>Slutttid:</p>
+			<select id="end_hour">
+				<option value="9">09</Option>
+				<option value="10">10</Option>
+				<option value="11">11</Option>
+				<option value="12" selected>12</Option>
+				<option value="13">13</Option>
+				<option value="14">14</Option>
+				<option value="15">15</Option>
+				<option value="16">16</Option>
+			</select>
+
+			<select id="end_minute">
+				<option value="0">00</Option>
+				<option value="15">15</Option>
+				<option value="30">30</Option>
+			</select>
+		</div>
+
+		<br>
+		<br>
+
+		<div class="submit">
+			<button type="button" onclick="updateButtonClick()">Uppdatera</button>
+		</div>
+		
+	</div>
+
+</body>
+
+</html>

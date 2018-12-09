@@ -66,68 +66,13 @@ function generateDateHeader (today) {
 	//var date = new Date();
 	var weekday = ["SÖNDAG", "MÅNDAG", "TISDAG", "ONSDAG", "TORSDAG", "FREDAG", "LÖRDAG"][today.getDay()];
 	var date = today.getDate();
-	console.log(date);
 	var month = ["JANUARI", "FEBRUARI", "MARS", "APRIL", "MAJ", "JUNI", "JULI", "AUGUSTI", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"][today.getMonth()];
 	//document.getElementById("heading").innerHTML = weekday + "    " + day + " " + month;
 	document.getElementById("heading").innerHTML = weekday + " " + date + " " + month;
 }
 
-function getStationInput() {
-	var e = document.getElementById("stations_update");
-	var station = e.options[e.selectedIndex].value;
-	console.log(station);
-	return station;
-}
 
-function getPeriodInput() {
-	var e = document.getElementById("periods_reset");
-	var period = e.options[e.selectedIndex].value;
-	console.log(period);
-	return period;
-}
-
-function getNameInput() {
-    var e = document.getElementById("name_input");
-    var name = "";
-    var i;
-    for (i = 0; i < e.length; i++) {
-        name = name + e.elements[i].value;
-    }
-	//console.log(name);
-	return name.toUpperCase();
-}
-
-function getStartHoursInput() {
-	var startHours = parseInt(document.getElementById("start_hour").value);
-	//console.log(typeof startHours);
-	return startHours;
-}
-
-function getStartMinutesInput() {
-	var startMinutes = parseInt(document.getElementById("start_minute").value);
-	//console.log(typeof startMinutes);
-	return startMinutes;
-}
-
-function getEndHoursInput() {
-	var endHours = parseInt(document.getElementById("end_hour").value);
-	//console.log(endHours);
-	return endHours;
-}
-
-function getEndMinutesInput() {
-	var startMinutes = parseInt(document.getElementById("start_minute").value);
-	//console.log(startMinutes);
-	return startMinutes;
-}
-
-function update() {
-	var name = getNameInput();
-	var station = getStationInput();
-	var startHour = getStartHoursInput();
-	var startMinute = getStartMinutesInput();
-	var endHour = getEndHoursInput();
-	var endMinute = getEndMinutesInput();
+function update(station, name, startHour, startMinute, endHour, endMinute) {
 	//console.log(name);
 	if (name == "") {
 		alert("Ange ett namn på personen");
@@ -233,9 +178,8 @@ function fillCells(station, name, startHour, startMinute, endHour, endMinute, cl
 	*/
 }
 
-function clearWorkingPeriod() {
-	var station = getStationInput();
-	var period = getPeriodInput();
+
+function clearWorkingPeriod(station, period) {
 
 	switch (period) {
 	    case "am":
@@ -430,23 +374,6 @@ function generateDay(day) {				//tag hand 	om fallen då vektorn är tom?
 
 }
 
-function changeInputVisibility() {
-	var state = document.getElementById("update-container").style.visibility;
-	
-	if (state == "hidden") {
-		document.getElementById("update-container").style.visibility = "visible";
-		console.log(document.getElementById("update-container").style.visibility);
-					document.getElementById("content-container").style.width = "1600px";
-	console.log("content-container:" + document.getElementById("content-container").clientWidth);
-	} else if (state == "visible") {
-		document.getElementById("update-container").style.visibility = "hidden";
-		console.log(document.getElementById("update-container").style.visibility);
-							document.getElementById("content-container").style.width = "1376px";
-	console.log("content-container:" + document.getElementById("content-container").clientWidth);
-
-	}
-}
-
 function fillTimeStaple() {
 	var timeStapleHeight = parseInt(document.getElementById("timestaple").clientHeight);
 	var timeStapleWidth = parseInt(document.getElementById("timestaple").clientWidth);
@@ -456,7 +383,7 @@ function fillTimeStaple() {
 
 function adjustTimeStapleSections() {
 	var minimumTimeUnitHeight = parseInt(document.getElementById("minimumTimeUnit").clientHeight);
-	console.log("minimumTimeUnitHeight:" + minimumTimeUnitHeight);
+	//console.log("minimumTimeUnitHeight:" + minimumTimeUnitHeight);
 	document.getElementById("am").style.height = 1 * minimumTimeUnitHeight + "px";
 	document.getElementById("am").style.paddingTop = 5 * minimumTimeUnitHeight + "px";
 	document.getElementById("am").style.paddingBottom = 6 * minimumTimeUnitHeight + "px";
@@ -468,28 +395,25 @@ function adjustTimeStapleSections() {
 	document.getElementById("pm").style.paddingBottom = 6 * minimumTimeUnitHeight + "px";
 }
 
-function resizeUpdateContainer () {
-	var tableHeight = document.getElementById("table").clientHeight;
-	document.getElementById("update-container").style.height = tableHeight + "px";
+function openUpdateWindow() {
+	updateWindow = window.open("update.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=650");
+	//testWindow = window.open("test.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+
 }
 
 window.onload = function initiate() {
 	var today = new Date();
 	generateDay(today.getDay());
-	resizeUpdateContainer();
 	adjustTimeStapleSections();
 	fillTimeStaple();
 	runTimeStaple();
 	//document.getElementById("clear").style.display = "none";
 	//document.getElementById("input").style.display = "none";
-	document.getElementById("update-container").style.visibility = "hidden";
-	console.log(document.getElementById("update-container").style.visibility);
-	console.log("body:" + document.getElementById("body").clientWidth);
-	console.log("content-container:" + document.getElementById("content-container").clientWidth);
-	console.log("table:" + document.getElementById("table").clientWidth);
-	console.log("update-container:" + document.getElementById("update-container").clientWidth);
-	console.log(parseInt(document.getElementById("am").clientHeight) + parseInt(document.getElementById("lunch").clientHeight) + parseInt(document.getElementById("pm").clientHeight));
-	console.log(parseInt(document.getElementById("timestaple").clientHeight));
+	//console.log("body:" + document.getElementById("body").clientWidth);
+	//console.log("content-container:" + document.getElementById("content-container").clientWidth);
+	//console.log("table:" + document.getElementById("table").clientWidth);
+	//console.log(parseInt(document.getElementById("am").clientHeight) + parseInt(document.getElementById("lunch").clientHeight) + parseInt(document.getElementById("pm").clientHeight));
+	//console.log(parseInt(document.getElementById("timestaple").clientHeight));
 }
 
 
