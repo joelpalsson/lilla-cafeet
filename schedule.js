@@ -159,7 +159,7 @@ function fillCells(station, name, startHour, startMinute, endHour, endMinute, cl
 
     var nameCell = Math.round(startCell + (endCell - startCell) / 2 - 1).toString();
        
-    e[nameCell].innerHTML = name;
+    e[nameCell].innerHTML = name.bold();
 
     /*
     console.log("station: " + station);
