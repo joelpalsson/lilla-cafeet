@@ -161,7 +161,7 @@ function fillCells(station, name, startHour, startMinute, endHour, endMinute, cl
        
     e[nameCell].innerHTML = name.bold();
 
-    /*
+    
     console.log("station: " + station);
     console.log("column: " + column);
     console.log("color: " + color);
@@ -169,13 +169,13 @@ function fillCells(station, name, startHour, startMinute, endHour, endMinute, cl
 	console.log("startHour: " + startHour.toString());
 	console.log("startMinute: " + startMinute.toString());
 	console.log("endHour: " + endHour.toString());
-	console.log("endMinute " + endMinute.toString());
+	console.log("endMinute: " + endMinute.toString());
 	console.log("firstHour: " + firstHour.toString());
 	console.log("minimumTimeUnit: " + minimumTimeUnit.toString());
 	console.log("startCell: " + startCell.toString());
 	console.log("endCell: " + endCell.toString());
 	console.log("nameCell: " + nameCell);
-	*/
+	
 }
 
 

@@ -42,7 +42,7 @@ function getEndHoursInput() {
 }
 
 function getEndMinutesInput() {
-	var startMinutes = parseInt(document.getElementById("start_minute").value);
+	var startMinutes = parseInt(document.getElementById("end_minute").value);
 	//console.log(startMinutes);
 	return startMinutes;
 }
