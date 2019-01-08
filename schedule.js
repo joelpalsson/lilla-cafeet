@@ -12,7 +12,8 @@ function runTimeStaple() {
 	var id = setInterval(initiateTimeStaple, 1000);
 	
 	function initiateTimeStaple() {
-		//console.log("väntar på initiering");
+		
+		//console.log("waiting for initiation");
 
 		var currentDate = new Date();
 		var currentHour = currentDate.getHours();
@@ -48,15 +49,17 @@ function runTimeStaple() {
 						document.getElementById("time").style.height = stapleHeight + "px";
 					}
 				} else {
-					//console.log("stapeln i botten");
+
+					//console.log("staple on the ground");
 					
 					clearInterval(id);
 
-					//console.log("uppdatering stoppad");
+					//console.log("updating stopped");
 					
 					id = setInterval(initiateTimeStaple, 1000);
 
 					//console.log(currentSecond);
+
 				}	
 			}
 		}
@@ -73,7 +76,6 @@ function generateDateHeader(today) {
 
 
 function update(station, name, startHour, startMinute, endHour, endMinute) {
-	//console.log(name);
 	if (name == "") {
 		alert("Ange ett namn på personen");
 	} else {
@@ -83,7 +85,6 @@ function update(station, name, startHour, startMinute, endHour, endMinute) {
 
 
 function fillCells(station, name, startHour, startMinute, endHour, endMinute, clear) {
-	
 	var column;
 	var color;
 
@@ -147,8 +148,7 @@ function fillCells(station, name, startHour, startMinute, endHour, endMinute, cl
 	var startCell = (startHour * 60 + startMinute - firstHour * 60) / minimumTimeUnit;
 	var endCell = ((endHour - firstHour) * 60 + endMinute) / minimumTimeUnit - 1;
 
-    var i;
-    for (i = startCell; i <= endCell; i++) {
+    for (var i = startCell; i <= endCell; i++) {
     	if (clear == true) {
     		e[i].innerHTML = "";
 			e[i].style.backgroundColor = "white";
@@ -203,18 +203,19 @@ function clearWorkingPeriod(station, period) {
 
 function clearSchedule() {
 	var stations = ["laundry", "cleaning_upstairs", "cleaning_downstairs", "baking_upstairs", "baking_downstairs", "sandwiches", "serving_1", "serving_2", "serving_3", "counter", "washing", "catering", "individual"];
-	for (i = 0; i < stations.length; i++) {
+	for (var i = 0; i < stations.length; i++) {
 		fillCells(stations[i], "", firstHour, 0, lastHour, 0, true);
 	}
 }
 
 
-function generateDay(today) {				//tag hand 	om fallen då vektorn är tom?
+function generateDay(today) {
 	clearSchedule();
 	generateDateHeader(today);
-	var periods = "";					//var periods = [];
+	var periods = "";
+	
 	switch (today.getDay()) {
-	    case 1: //måndag
+	    case 1: // monday
 	        periods = [
 				{station:"cleaning_downstairs", name:"LENA", startHour:9, startMinute:0, endHour:12, endMinute:0},
 				{station:"baking_downstairs", name:"JOHAN R", startHour:9, startMinute:0, endHour:12, endMinute:0},
@@ -244,8 +245,7 @@ function generateDay(today) {				//tag hand 	om fallen då vektorn är tom?
 				//{station:"cleaning_upstairs", name:"", startHour:9, startMinute:0, endHour:16, endMinute:0}
 			];
 	        break;
-	    case 2: //tisdag
-	    	console.log("tisdag");
+	    case 2: // tuesday
 	        periods = [
 				{station:"cleaning_downstairs", name:"ANNA-KARIN", startHour:9, startMinute:0, endHour:12, endMinute:0},
 				{station:"baking_downstairs", name:"CHRISTINA", startHour:9, startMinute:0, endHour:12, endMinute:0},
@@ -275,7 +275,7 @@ function generateDay(today) {				//tag hand 	om fallen då vektorn är tom?
 				{station:"cleaning_upstairs", name:"JOHAN R", startHour:13, startMinute:0, endHour:16, endMinute:0}
 			];
 	        break;
-	    case 3: //onsdag
+	    case 3: // wednesday
 	        periods = [
 				{station:"cleaning_downstairs", name:"PATRIK", startHour:9, startMinute:0, endHour:12, endMinute:0},
 				{station:"baking_downstairs", name:"CHRISTINA", startHour:9, startMinute:0, endHour:12, endMinute:0},
@@ -305,7 +305,7 @@ function generateDay(today) {				//tag hand 	om fallen då vektorn är tom?
 				{station:"cleaning_upstairs", name:"JOHAN R", startHour:13, startMinute:0, endHour:16, endMinute:0}
 			];
 	        break;
-	    case 4: //torsdag
+	    case 4: // thursday
 	        periods = [
 				{station:"cleaning_downstairs", name:"CHRISTINA", startHour:9, startMinute:0, endHour:12, endMinute:0},
 				{station:"baking_downstairs", name:"MICHAELA", startHour:9, startMinute:0, endHour:12, endMinute:0},
@@ -335,7 +335,7 @@ function generateDay(today) {				//tag hand 	om fallen då vektorn är tom?
 				//{station:"cleaning_upstairs", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0}
 			];
 	        break;
-	    case 5: //fredag
+	    case 5: // friday
 	        periods = [
 				{station:"cleaning_downstairs", name:"ANNA", startHour:9, startMinute:0, endHour:12, endMinute:0},
 				{station:"baking_downstairs", name:"MICHAELA", startHour:9, startMinute:0, endHour:12, endMinute:0},
@@ -368,11 +368,13 @@ function generateDay(today) {				//tag hand 	om fallen då vektorn är tom?
 	}
 
 	//console.log(periods);
+	
 	var period;
 	var i;
 	for (i = 0; i < periods.length; i++) {
 		period = periods[i];
-		/*console.log(period.station);
+		/*
+		console.log(period.station);
 		console.log(period.name);
 		console.log(period.startHour);
 		console.log(period.startMinute);
@@ -381,8 +383,8 @@ function generateDay(today) {				//tag hand 	om fallen då vektorn är tom?
 		*/
 		fillCells(period.station, period.name, period.startHour, period.startMinute, period.endHour, period.endMinute, false);
 	}
-
 }
+
 
 function fillTimeStaple() {
 	var timeStapleHeight = parseInt(document.getElementById("timestaple").clientHeight);
@@ -390,6 +392,7 @@ function fillTimeStaple() {
 	document.getElementById("time").style.height = timeStapleHeight.toString() + "px";
 	document.getElementById("time").style.width = timeStapleWidth.toString() + "px";
 }
+
 
 function adjustTimeStapleSections() {
 	var minimumTimeUnitHeight = parseInt(document.getElementById("minimumTimeUnit").clientHeight);
@@ -405,21 +408,23 @@ function adjustTimeStapleSections() {
 	document.getElementById("pm").style.paddingBottom = 6 * minimumTimeUnitHeight + "px";
 }
 
+
 function openUpdateWindow() {
 	updateWindow = window.open("update.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=650");
-	//testWindow = window.open("test.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
-
 }
+
 
 function nextDay() {
 	today.setDate(today.getDate() + 1);
 	generateDay(today);
 }
 
+
 function prevDay() {
 	today.setDate(today.getDate() - 1);
 	generateDay(today);
 }
+
 
 window.onload = function initiate() {
 	today = new Date();
@@ -427,14 +432,4 @@ window.onload = function initiate() {
 	adjustTimeStapleSections();
 	fillTimeStaple();
 	runTimeStaple();
-	//document.getElementById("clear").style.display = "none";
-	//document.getElementById("input").style.display = "none";
-	//console.log("body:" + document.getElementById("body").clientWidth);
-	//console.log("content-container:" + document.getElementById("content-container").clientWidth);
-	//console.log("table:" + document.getElementById("table").clientWidth);
-	//console.log(parseInt(document.getElementById("am").clientHeight) + parseInt(document.getElementById("lunch").clientHeight) + parseInt(document.getElementById("pm").clientHeight));
-	//console.log(parseInt(document.getElementById("timestaple").clientHeight));
 }
-
-
-//window.onload = function(){ alert("Working!!"); }
