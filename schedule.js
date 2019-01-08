@@ -2,6 +2,8 @@ var firstHour = 9;
 var lastHour = 16;
 var minimumTimeUnit = 15;
 
+var today;
+
 
 function runTimeStaple() {
 	var stapleHeight = parseInt(document.getElementById("timestaple").clientHeight) + 1;
@@ -10,7 +12,7 @@ function runTimeStaple() {
 	var id = setInterval(initiateTimeStaple, 1000);
 	
 	function initiateTimeStaple() {
-		console.log("väntar på initiering");
+		//console.log("väntar på initiering");
 
 		var currentDate = new Date();
 		var currentHour = currentDate.getHours();
@@ -46,11 +48,11 @@ function runTimeStaple() {
 						document.getElementById("time").style.height = stapleHeight + "px";
 					}
 				} else {
-					console.log("stapeln i botten");
+					//console.log("stapeln i botten");
 					
 					clearInterval(id);
 
-					console.log("uppdatering stoppad");
+					//console.log("uppdatering stoppad");
 					
 					id = setInterval(initiateTimeStaple, 1000);
 
@@ -62,13 +64,11 @@ function runTimeStaple() {
 }	
 
 
-function generateDateHeader (today) {
-	//var date = new Date();
+function generateDateHeader(today) {
 	var weekday = ["SÖNDAG", "MÅNDAG", "TISDAG", "ONSDAG", "TORSDAG", "FREDAG", "LÖRDAG"][today.getDay()];
 	var date = today.getDate();
 	var month = ["JANUARI", "FEBRUARI", "MARS", "APRIL", "MAJ", "JUNI", "JULI", "AUGUSTI", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"][today.getMonth()];
-	//document.getElementById("heading").innerHTML = weekday + "    " + day + " " + month;
-	document.getElementById("heading").innerHTML = weekday + " " + date + " " + month;
+	document.getElementById("date").innerHTML = weekday + " " + date + " " + month;
 }
 
 
@@ -161,7 +161,7 @@ function fillCells(station, name, startHour, startMinute, endHour, endMinute, cl
        
     e[nameCell].innerHTML = name.bold();
 
-    
+    /*
     console.log("station: " + station);
     console.log("column: " + column);
     console.log("color: " + color);
@@ -175,11 +175,13 @@ function fillCells(station, name, startHour, startMinute, endHour, endMinute, cl
 	console.log("startCell: " + startCell.toString());
 	console.log("endCell: " + endCell.toString());
 	console.log("nameCell: " + nameCell);
-	
+	*/
 }
 
 
 function clearWorkingPeriod(station, period) {
+	var startHour;
+	var endHour;
 
 	switch (period) {
 	    case "am":
@@ -199,11 +201,19 @@ function clearWorkingPeriod(station, period) {
 }
 
 
-function generateDay(day) {				//tag hand 	om fallen då vektorn är tom?
-	var date = new Date ();
-	generateDateHeader (date);
+function clearSchedule() {
+	var stations = ["laundry", "cleaning_upstairs", "cleaning_downstairs", "baking_upstairs", "baking_downstairs", "sandwiches", "serving_1", "serving_2", "serving_3", "counter", "washing", "catering", "individual"];
+	for (i = 0; i < stations.length; i++) {
+		fillCells(stations[i], "", firstHour, 0, lastHour, 0, true);
+	}
+}
+
+
+function generateDay(today) {				//tag hand 	om fallen då vektorn är tom?
+	clearSchedule();
+	generateDateHeader(today);
 	var periods = "";					//var periods = [];
-	switch (day) {
+	switch (today.getDay()) {
 	    case 1: //måndag
 	        periods = [
 				{station:"cleaning_downstairs", name:"LENA", startHour:9, startMinute:0, endHour:12, endMinute:0},
@@ -401,9 +411,19 @@ function openUpdateWindow() {
 
 }
 
+function nextDay() {
+	today.setDate(today.getDate() + 1);
+	generateDay(today);
+}
+
+function prevDay() {
+	today.setDate(today.getDate() - 1);
+	generateDay(today);
+}
+
 window.onload = function initiate() {
-	var today = new Date();
-	generateDay(today.getDay());
+	today = new Date();
+	generateDay(today);
 	adjustTimeStapleSections();
 	fillTimeStaple();
 	runTimeStaple();

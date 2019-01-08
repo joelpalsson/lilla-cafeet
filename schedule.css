@@ -18,13 +18,24 @@ body {
 	font-family: Calibri;
 }
 
-#heading {
-	font-size: 40px;
-	padding: 15px;
 
+#heading {
+	padding: 30px;
 }
 
+#date {
+	font-size: 40px;
+	width: 420px;
+}
 
+#left_arrow, #right_arrow, #date {
+	vertical-align: middle;
+	display: inline-block;
+}
+
+#left_arrow, #right_arrow {
+	cursor: pointer;
+}
 
 
 /* ------ borders ------ */
