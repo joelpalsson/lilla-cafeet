@@ -5,6 +5,29 @@ var minimumTimeUnit = 15;
 var today;
 
 
+function fillTimeStaple() {
+	var timeStapleHeight = parseInt(document.getElementById("timestaple").clientHeight);
+	var timeStapleWidth = parseInt(document.getElementById("timestaple").clientWidth);
+	document.getElementById("time").style.height = timeStapleHeight.toString() + "px";
+	document.getElementById("time").style.width = timeStapleWidth.toString() + "px";
+}
+
+
+function adjustTimeStapleSections() {
+	var minimumTimeUnitHeight = parseInt(document.getElementById("minimumTimeUnit").clientHeight);
+	//console.log("minimumTimeUnitHeight:" + minimumTimeUnitHeight);
+	document.getElementById("am").style.height = 1 * minimumTimeUnitHeight + "px";
+	document.getElementById("am").style.paddingTop = 5 * minimumTimeUnitHeight + "px";
+	document.getElementById("am").style.paddingBottom = 6 * minimumTimeUnitHeight + "px";
+	document.getElementById("lunch").style.height = 1 * minimumTimeUnitHeight + "px";
+	document.getElementById("lunch").style.paddingTop = 1 * minimumTimeUnitHeight + "px";
+	document.getElementById("lunch").style.paddingBottom = 2 * minimumTimeUnitHeight + "px";
+	document.getElementById("pm").style.height = 1 * minimumTimeUnitHeight + "px";
+	document.getElementById("pm").style.paddingTop = 5 * minimumTimeUnitHeight + "px";
+	document.getElementById("pm").style.paddingBottom = 6 * minimumTimeUnitHeight + "px";
+}
+
+
 function runTimeStaple() {
 	var stapleHeight = parseInt(document.getElementById("timestaple").clientHeight) + 1;
 	var timeUnitHeight = stapleHeight / ((lastHour - firstHour) * 60);
@@ -63,23 +86,6 @@ function runTimeStaple() {
 				}	
 			}
 		}
-	}
-}	
-
-
-function generateDateHeader(today) {
-	var weekday = ["SÖNDAG", "MÅNDAG", "TISDAG", "ONSDAG", "TORSDAG", "FREDAG", "LÖRDAG"][today.getDay()];
-	var date = today.getDate();
-	var month = ["JANUARI", "FEBRUARI", "MARS", "APRIL", "MAJ", "JUNI", "JULI", "AUGUSTI", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"][today.getMonth()];
-	document.getElementById("date").innerHTML = weekday + " " + date + " " + month;
-}
-
-
-function update(station, name, startHour, startMinute, endHour, endMinute) {
-	if (name == "") {
-		alert("Ange ett namn på personen");
-	} else {
-		fillCells(station, name, startHour, startMinute, endHour, endMinute, false);
 	}
 }
 
@@ -179,33 +185,19 @@ function fillCells(station, name, startHour, startMinute, endHour, endMinute, cl
 }
 
 
-function clearWorkingPeriod(station, period) {
-	var startHour;
-	var endHour;
-
-	switch (period) {
-	    case "am":
-			startHour = 9;
-			endHour = 12;
-	        break;
-	    case "lunch":
-			startHour = 12;
-			endHour = 13;
-	        break;
-	    case "pm":
-			startHour = 13;
-			endHour = 16;   
-	}
-
-	fillCells(station, "", startHour, 0, endHour, 0, true);
-}
-
-
 function clearSchedule() {
 	var stations = ["laundry", "cleaning_upstairs", "cleaning_downstairs", "baking_upstairs", "baking_downstairs", "sandwiches", "serving_1", "serving_2", "serving_3", "counter", "washing", "catering", "individual"];
 	for (var i = 0; i < stations.length; i++) {
 		fillCells(stations[i], "", firstHour, 0, lastHour, 0, true);
 	}
+}
+
+
+function generateDateHeader(today) {
+	var weekday = ["SÖNDAG", "MÅNDAG", "TISDAG", "ONSDAG", "TORSDAG", "FREDAG", "LÖRDAG"][today.getDay()];
+	var date = today.getDate();
+	var month = ["JANUARI", "FEBRUARI", "MARS", "APRIL", "MAJ", "JUNI", "JULI", "AUGUSTI", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DECEMBER"][today.getMonth()];
+	document.getElementById("date").innerHTML = weekday + " " + date + " " + month;
 }
 
 
@@ -384,26 +376,34 @@ function generateDay(today) {
 }
 
 
-function fillTimeStaple() {
-	var timeStapleHeight = parseInt(document.getElementById("timestaple").clientHeight);
-	var timeStapleWidth = parseInt(document.getElementById("timestaple").clientWidth);
-	document.getElementById("time").style.height = timeStapleHeight.toString() + "px";
-	document.getElementById("time").style.width = timeStapleWidth.toString() + "px";
+function clearWorkingPeriod(station, period) {
+	var startHour;
+	var endHour;
+
+	switch (period) {
+	    case "am":
+			startHour = 9;
+			endHour = 12;
+	        break;
+	    case "lunch":
+			startHour = 12;
+			endHour = 13;
+	        break;
+	    case "pm":
+			startHour = 13;
+			endHour = 16;   
+	}
+
+	fillCells(station, "", startHour, 0, endHour, 0, true);
 }
 
 
-function adjustTimeStapleSections() {
-	var minimumTimeUnitHeight = parseInt(document.getElementById("minimumTimeUnit").clientHeight);
-	//console.log("minimumTimeUnitHeight:" + minimumTimeUnitHeight);
-	document.getElementById("am").style.height = 1 * minimumTimeUnitHeight + "px";
-	document.getElementById("am").style.paddingTop = 5 * minimumTimeUnitHeight + "px";
-	document.getElementById("am").style.paddingBottom = 6 * minimumTimeUnitHeight + "px";
-	document.getElementById("lunch").style.height = 1 * minimumTimeUnitHeight + "px";
-	document.getElementById("lunch").style.paddingTop = 1 * minimumTimeUnitHeight + "px";
-	document.getElementById("lunch").style.paddingBottom = 2 * minimumTimeUnitHeight + "px";
-	document.getElementById("pm").style.height = 1 * minimumTimeUnitHeight + "px";
-	document.getElementById("pm").style.paddingTop = 5 * minimumTimeUnitHeight + "px";
-	document.getElementById("pm").style.paddingBottom = 6 * minimumTimeUnitHeight + "px";
+function update(station, name, startHour, startMinute, endHour, endMinute) {
+	if (name == "") {
+		alert("Ange ett namn på personen");
+	} else {
+		fillCells(station, name, startHour, startMinute, endHour, endMinute, false);
+	}
 }
 
 
