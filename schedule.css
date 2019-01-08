@@ -31,9 +31,6 @@ body {
 #left_arrow, #right_arrow, #date {
 	vertical-align: middle;
 	display: inline-block;
-}
-
-#left_arrow, #right_arrow {
 	cursor: pointer;
 }
 
@@ -152,7 +149,7 @@ table td{
 
 /* ------ containers ------ */
 
-#heading-container, #content-container, #button-container {
+#heading-container, #content-container {
 	/*width: 1376px;*/
 	width: 100%;
 
@@ -171,12 +168,6 @@ table td{
 	padding: 5px;
 	/*border: 3px solid black;*/
 	margin: 5px;
-}
-
-#button-container {
-	text-align: center;	
-	padding-top: 50px;
-	padding-bottom: 50px;
 }
 
 
