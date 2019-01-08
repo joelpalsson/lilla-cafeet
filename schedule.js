@@ -212,7 +212,7 @@ function clearSchedule() {
 function generateDay(today) {
 	clearSchedule();
 	generateDateHeader(today);
-	var periods = "";
+	var periods = [];
 	
 	switch (today.getDay()) {
 	    case 1: // monday
@@ -369,10 +369,8 @@ function generateDay(today) {
 
 	//console.log(periods);
 	
-	var period;
-	var i;
-	for (i = 0; i < periods.length; i++) {
-		period = periods[i];
+	for (var i = 0; i < periods.length; i++) {
+		var period = periods[i];
 		/*
 		console.log(period.station);
 		console.log(period.name);
