@@ -3,6 +3,7 @@ var lastHour = 16;
 var minimumTimeUnit = 15;
 
 var today;
+var xmlDoc;
 
 
 function fillTimeStaple() {
@@ -201,177 +202,54 @@ function generateDateHeader(today) {
 }
 
 
+function loadXML(file) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            parseXML(this.responseXML);
+        }
+    };
+    xhttp.open("GET", file, true);
+    xhttp.send();
+}
+
+
+function parseXML(xmlDoc) {
+    var workingPeriods = xmlDoc.getElementsByTagName("working_period");
+    //console.log(workingPeriods);
+    for (var i = 0; i < workingPeriods.length; i++) {
+
+        var station = workingPeriods[i].getElementsByTagName("station")[0].childNodes[0].nodeValue;
+        var name = workingPeriods[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+        var startHour = workingPeriods[i].getElementsByTagName("start_hour")[0].childNodes[0].nodeValue;
+        var startMinute = workingPeriods[i].getElementsByTagName("start_minute")[0].childNodes[0].nodeValue;
+        var endHour = workingPeriods[i].getElementsByTagName("end_hour")[0].childNodes[0].nodeValue;
+        var endMinute = workingPeriods[i].getElementsByTagName("end_minute")[0].childNodes[0].nodeValue;
+		
+		fillCells(station, name, parseInt(startHour), parseInt(startMinute), parseInt(endHour), parseInt(endMinute), false);
+	}
+}
+
+
 function generateDay(today) {
 	clearSchedule();
 	generateDateHeader(today);
-	var periods = [];
-	
+
 	switch (today.getDay()) {
 	    case 1: // monday
-	        periods = [
-				{station:"cleaning_downstairs", name:"LENA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"baking_downstairs", name:"JOHAN R", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"serving_1", name:"LENA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"serving_2", name:"SVEN-ERIK", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"sandwiches", name:"KERSTIN", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"counter", name:"ANDREAS", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"individual", name:"MICHAELA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				//{station:"catering", name:"", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"baking_upstairs", name:"CHRISTINA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"laundry", name:"HANNA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				
-				{station:"serving_1", name:"CHRISTINA", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"serving_2", name:"MICHAELA", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"sandwiches", name:"CARMEN", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"counter", name:"ULLIS", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"washing", name:"JOHAN R", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				
-				{station:"baking_downstairs", name:"LENA", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"serving_1", name:"SVEN-ERIK", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"serving_2", name:"CARMEN", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				//{station:"serving_3", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"sandwiches", name:"MICHAELA", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"counter", name:"PAULINE", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"washing", name:"JOHAN R", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				//{station:"individual", name:"", startHour:9, startMinute:0, endHour:16, endMinute:0},
-				//{station:"cleaning_upstairs", name:"", startHour:9, startMinute:0, endHour:16, endMinute:0}
-			];
+	        loadXML("data/monday.xml");
 	        break;
 	    case 2: // tuesday
-	        periods = [
-				{station:"cleaning_downstairs", name:"ANNA-KARIN", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"baking_downstairs", name:"CHRISTINA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"serving_1", name:"PATRIK", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"serving_2", name:"LENA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"sandwiches", name:"SVEN-ERIK", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"counter", name:"KERSTIN", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"individual", name:"ANNA-KARIN", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				//{station:"catering", name:"", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"baking_upstairs", name:"MICHAELA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"laundry", name:"JOHAN R", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				
-				{station:"serving_1", name:"MICHAELA", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"serving_2", name:"ANNA-KARIN", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"sandwiches", name:"CARMEN", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"counter", name:"ULLIS", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"washing", name:"JOHAN R", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				
-				//{station:"baking_downstairs", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"serving_1", name:"MICHAELA", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"serving_2", name:"CARMEN", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				//{station:"serving_3", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				//{station:"sandwiches", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"counter", name:"KERSTIN", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"washing", name:"ULF", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				//{station:"individual", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"cleaning_upstairs", name:"JOHAN R", startHour:13, startMinute:0, endHour:16, endMinute:0}
-			];
+	        loadXML("data/tuesday.xml");
 	        break;
 	    case 3: // wednesday
-	        periods = [
-				{station:"cleaning_downstairs", name:"PATRIK", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"baking_downstairs", name:"CHRISTINA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"serving_1", name:"PATRIK", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"serving_2", name:"SVEN-ERIK", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"sandwiches", name:"LENA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"counter", name:"KERSTIN", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"individual", name:"JOHAN R", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				//{station:"catering", name:"", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"baking_upstairs", name:"JOHAN R", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"laundry", name:"HANNA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				
-				{station:"serving_1", name:"CHRISTINA", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"serving_2", name:"CARMEN", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"sandwiches", name:"PAULINE", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"counter", name:"ULLIS", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"washing", name:"JOHAN R", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				
-				{station:"baking_downstairs", name:"GUNILLA", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"serving_1", name:"PATRIK", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"serving_2", name:"CHRISTINA", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"serving_3", name:"CARMEN", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"sandwiches", name:"MICHAELA", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"counter", name:"KERSTIN", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"washing", name:"ULF", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"individual", name:"MIKLOS", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"cleaning_upstairs", name:"JOHAN R", startHour:13, startMinute:0, endHour:16, endMinute:0}
-			];
+	        loadXML("data/wednesday.xml");
 	        break;
 	    case 4: // thursday
-	        periods = [
-				{station:"cleaning_downstairs", name:"CHRISTINA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"baking_downstairs", name:"MICHAELA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"serving_1", name:"PATRIK", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"serving_1", name:"CHRISTINA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"sandwiches", name:"LENA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"counter", name:"KERSTIN", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				//{station:"individual", name:"", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				//{station:"catering", name:"", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"baking_upstairs", name:"ANNA-KARIN", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				//{station:"laundry", name:"", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				
-				//{station:"serving_1", name:"", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"serving_2", name:"MICHAELA", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"sandwiches", name:"ANNA-KARIN", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"counter", name:"ULLIS", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				//{station:"washing", name:"", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				
-				{station:"baking_downstairs", name:"CHRISTINA", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"serving_1", name:"PATRIK", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"serving_2", name:"SVEN-ERIK", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				//{station:"serving_3", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"sandwiches", name:"MICHAELA", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"counter", name:"KERSTIN", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"washing", name:"ULF", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				//{station:"individual", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				//{station:"cleaning_upstairs", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0}
-			];
-	        break;
+			loadXML("data/thursday.xml");
+			break;
 	    case 5: // friday
-	        periods = [
-				{station:"cleaning_downstairs", name:"ANNA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"baking_downstairs", name:"MICHAELA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"serving_1", name:"PATRIK", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"serving_1", name:"LENA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"sandwiches", name:"ANNA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"counter", name:"KERSTIN", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"individual", name:"JOHAN R", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"catering", name:"JOHAN R", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"baking_upstairs", name:"GUNILLA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				{station:"laundry", name:"HANNA", startHour:9, startMinute:0, endHour:12, endMinute:0},
-				
-				{station:"serving_1", name:"MICHAELA", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"serving_2", name:"CHRISTINA", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"sandwiches", name:"PAULINE", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"counter", name:"ULLIS", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				{station:"washing", name:"JOHAN R", startHour:12, startMinute:0, endHour:13, endMinute:0},
-				
-				//{station:"baking_downstairs", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"serving_1", name:"PATRIK", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"serving_2", name:"CHRISTINA", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				//{station:"serving_3", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				//{station:"sandwiches", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"counter", name:"KERSTIN/ULLIS", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"washing", name:"JOHAN R", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				//{station:"individual", name:"", startHour:13, startMinute:0, endHour:16, endMinute:0},
-				{station:"cleaning_upstairs", name:"LENA", startHour:13, startMinute:0, endHour:16, endMinute:0}
-			];
-	        break;
-	}
-
-	//console.log(periods);
-	
-	for (var i = 0; i < periods.length; i++) {
-		var period = periods[i];
-		/*
-		console.log(period.station);
-		console.log(period.name);
-		console.log(period.startHour);
-		console.log(period.startMinute);
-		console.log(period.endHour);
-		console.log(period.endMinute);
-		*/
-		fillCells(period.station, period.name, period.startHour, period.startMinute, period.endHour, period.endMinute, false);
+	       	loadXML("data/friday.xml");
 	}
 }
 
