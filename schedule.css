@@ -21,7 +21,7 @@ th#header {
 	width: 420px;
 }
 
-#left_arrow, #right_arrow, #date {
+#arrow-left, #arrow-right, #date {
 	vertical-align: middle;
 	display: inline-block;
 	cursor: pointer;
@@ -41,11 +41,11 @@ td.timeindication {
 
 /* ------ time scale ------ */
 
-col#timescale-col1 {
+col#timescale-col-1 {
 	width: 4px;
 }
 
-col#timescale-col2 {
+col#timescale-col-2 {
 	width: 8px;
 }
 
@@ -93,11 +93,11 @@ col#timescale-col2 {
 
 /* columns */
 
-.schedule-col:not(#col13) {
+.schedule-col:not(#schedule-col-13) {
 	width: 75px;
 }
 
-#col13 {
+#schedule-col-13 {
 	width: 100px;
 }
 
@@ -119,17 +119,18 @@ th.floor {
 	border: 1px solid black;
 }
 
-.s1, .s13 {
+.cleaning div, .baking div, .serving div, .counter div, .washing div, .catering div {
+	padding-bottom: 30px;
+}
+
+.laundry div, .individual div {
 	padding-bottom: 10px;
 }
 
-.s6 {
+.sandwiches div {
 	padding-bottom: 0px;
 }
 
-.station div:not(.s1):not(.s6):not(.s13) {
-	padding-bottom: 30px;
-}
 
 /* cells */
 
@@ -144,49 +145,49 @@ td.cell {
 	border-right: 1px solid black;
 }
 
-#r1 td.cell {
+#schedule-row-1 td.cell {
 	border-top: 1px solid black;
 }
 
-#r28 td.cell {
+#schedule-row-28 td.cell {
 	border-bottom: 1px solid black;
 }
 
 /* colors */
 
-th.s1 {
+th.laundry {
 	background-color: #C4BD97;
 }
 
-th.s2, th.s3 {
+th.cleaning {
 	background-color: #808080;
 }
 
-th.s4, th.s5 {
+th.baking {
 	background-color: #FFFF0B;
 }
 
-th.s6 {
+th.sandwiches {
 	background-color: #18C1FF;
 }
 
-th.s7, th.s8, th.s9 {
+th.serving {
 	background-color: #FB00FF;
 }
 
-th.s10 {
+th.counter {
 	background-color: #00B050;
 }
 
-th.s11 {
+th.washing {
 	background-color: #FB0005;
 }
 
-th.s12 {
+th.catering {
 	background-color: #FFC000;
 }
 
-th.s13 {
+th.individual {
 	background-color: #C097E7;
 }
 

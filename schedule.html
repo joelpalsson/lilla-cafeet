@@ -20,92 +20,92 @@
 		<!-- columns -->
 		<colgroup>
 			<col id="timeindication-col">
-			<col id="timescale-col1">
-			<col id="timescale-col2">
+			<col id="timescale-col-1">
+			<col id="timescale-col-2">
 			<col id="timestaple-col">
-			<col id="col1" class="schedule-col">
-			<col id="col2" class="schedule-col">
-			<col id="col3" class="schedule-col">
-			<col id="col4" class="schedule-col">
-			<col id="col5" class="schedule-col">
-			<col id="col6" class="schedule-col">
-			<col id="col7" class="schedule-col">
-			<col id="col8" class="schedule-col">
-			<col id="col9" class="schedule-col">
-			<col id="col10" class="schedule-col">
-			<col id="col11" class="schedule-col">
-			<col id="col12" class="schedule-col">
-			<col id="col13" class="schedule-col">
+			<col id="schedule-col-1" class="schedule-col">
+			<col id="schedule-col-2" class="schedule-col">
+			<col id="schedule-col-3" class="schedule-col">
+			<col id="schedule-col-4" class="schedule-col">
+			<col id="schedule-col-5" class="schedule-col">
+			<col id="schedule-col-6" class="schedule-col">
+			<col id="schedule-col-7" class="schedule-col">
+			<col id="schedule-col-8" class="schedule-col">
+			<col id="schedule-col-9" class="schedule-col">
+			<col id="schedule-col-10" class="schedule-col">
+			<col id="schedule-col-11" class="schedule-col">
+			<col id="schedule-col-12" class="schedule-col">
+			<col id="schedule-col-13" class="schedule-col">
 		</colgroup>
 
 		<!-- header row -->
-		<tr>
+		<tr id="header-row">
 			<!-- dummy cells -->
 			<td class="empty" rowspan="2" colspan="3"></td>
 			<td class="empty" rowspan="3"></td>
 			<!-- header cell -->
 			<th id="header" colspan="13">
-				<div id="left_arrow" onclick="prevDay()">&#9668;</div>
+				<div id="arrow-left" onclick="prevDay()">&#9668;</div>
 				<div id="date" onclick="openUpdateWindow()"></div>
-				<div id="right_arrow" onclick="nextDay()">&#9658;</div>
+				<div id="arrow-right" onclick="nextDay()">&#9658;</div>
 			</th>
 		</tr>
 
 		<!-- stations row -->
-		<tr>
-			<th class="s1 station" rowspan="2">
-				<div class="s1" >TVÄTT &<br>SOPOR</div>
+		<tr id="stations-row">
+			<th class="laundry station" rowspan="2">
+				<div>TVÄTT &<br>SOPOR</div>
 				<img alt="img" src="images/wash.png" alt="Alternative Text"/>
 			</th>
-			<th class="s2 s3 station" colspan="2">
-				<div class="s2 s3">STÄDA</div>
+			<th class="cleaning station" colspan="2">
+				<div>STÄDA</div>
 				<img alt="img" src="images/clean.png" alt="Alternative Text"/>
 			</th>
-			<th class="s4 s5 station" colspan="2">
-				<div class="s4 s5">BAKA</div>
+			<th class="baking station" colspan="2">
+				<div>BAKA</div>
 				<img alt="img" src="images/bake.png" alt="Alternative Text"/>
 			</th>
-			<th class="s6 station" rowspan="2">
-				<div class="s6">MACKOR &<br>KAKOR</div>
+			<th class="sandwiches station" rowspan="2">
+				<div>MACKOR &<br>KAKOR</div>
 				<img alt="img" src="images/sandwich.png" alt="Alternative Text"/>
 			</th>
-			<th class="s7 s8 s9 station" rowspan="2" colspan="3">
-				<div class="s7 s8 s9">SERVERA</div>
+			<th class="serving station" rowspan="2" colspan="3">
+				<div>SERVERA</div>
 				<img alt="img" src="images/serve.png" alt="Alternative Text"/>
 			</th>
-			<th class="s10 station" rowspan="2">
-				<div class="s10">KASSA</div>
+			<th class="counter station" rowspan="2">
+				<div>KASSA</div>
 				<img alt="img" src="images/till.png" alt="Alternative Text"/>
 			</th>
-			<th class="s11 station" rowspan="2">
-				<div class="s11">DISKA</div>
+			<th class="washing station" rowspan="2">
+				<div>DISKA</div>
 				<img alt="img" src="images/dish.png" alt="Alternative Text"/>
 			</th>
-			<th class="s12 station" rowspan="2">
-				<div class="s12" >CATERING</div>
+			<th class="catering station" rowspan="2">
+				<div>CATERING</div>
 				<img alt="img" src="images/catering.png" alt="Alternative Text"/>
 			</th>
-			<th class="s13 station" rowspan="2">
-				<div class="s13">INDIVIDUELLA UPPGIFTER</div>
+			<th class="individual station" rowspan="2">
+				<div>INDIVIDUELLA UPPGIFTER</div>
 				<img alt="img" src="images/tasks.png" alt="Alternative Text"/>
 			</th>
 		</tr>
 
 		<!-- floors row -->
-		<tr>
+		<tr id="floors-row">
 			<!-- time indication cell: 9 am -->
 			<td class="timeindication" rowspan="2">9</td>
 			<!-- time scale cell: 9.00 -->
 			<td class="timescale hour" colspan="2"></td>
 			<!-- floors cells -->
-			<th class="s2 floor">ÖVERVÅNING</th>
-			<th class="s3 floor">CAFÉ</th>
-			<th class="s4 floor">ÖVERVÅNING</th>
-			<th class="s5 floor">CAFÉ</th>
+			<th class="cleaning floor">ÖVERVÅNING</th>
+			<th class="cleaning floor">CAFÉ</th>
+			<th class="baking floor">ÖVERVÅNING</th>
+			<th class="baking floor">CAFÉ</th>
 		</tr>
 	
 		<!-- schedule row 1 -->
-		<tr id="r1">
+		<tr id="schedule-row-1">
 			<td class="empty" rowspan="3"></td>
 			<!-- time scale cell: 9.15 -->
 			<td class="timescale quarter"></td>
@@ -133,7 +133,7 @@
 		</tr>
 
 		<!-- schedule row 2 -->
-		<tr id="r2">
+		<tr id="schedule-row-2">
 			<td class="empty" rowspan="2"></td>
 			<!-- time scale cell: 9.30 -->
 			<td class="timescale halfhour"></td>
@@ -153,7 +153,7 @@
 		</tr>
 
 		<!-- schedule row 3 -->
-		<tr id="r3">
+		<tr id="schedule-row-3">
 			<!-- time scale cell: 9.45 -->
 			<td class="timescale quarter"></td>
 			<td class="cell c1"></td>
@@ -172,7 +172,7 @@
 		</tr>
 
 		<!-- schedule row 4 -->
-		<tr id="r4">
+		<tr id="schedule-row-4">
 			<!-- time indication cell: 10 am -->
 			<td class="timeindication" rowspan="2">10</td>
 			<!-- time scale cell: 10.00 -->
@@ -193,7 +193,7 @@
 		</tr>
 
 		<!-- schedule row 5 -->
-		<tr id="r5">
+		<tr id="schedule-row-5">
 			<td class="empty" rowspan="3"></td>
 			<!-- time scale cell: 10.15 -->
 			<td class="timescale quarter"></td>
@@ -213,7 +213,7 @@
 		</tr>
 
 		<!-- schedule row 6 -->
-		<tr id="r6">
+		<tr id="schedule-row-6">
 			<td class="empty" rowspan="2"></td>
 			<!-- time scale cell: 10.30 -->
 			<td class="timescale halfhour"></td>
@@ -233,7 +233,7 @@
 		</tr>
 
 		<!-- schedule row 7 -->
-		<tr id="r7">
+		<tr id="schedule-row-7">
 			<!-- time scale cell: 10.45 -->
 			<td class="timescale quarter"></td>
 			<td class="cell c1"></td>
@@ -252,7 +252,7 @@
 		</tr>
 
 		<!-- schedule row 8 -->
-		<tr id="r8">
+		<tr id="schedule-row-8">
 			<!-- time indication cell: 11 am -->
 			<td class="timeindication" rowspan="2">11</td>
 			<!-- time scale cell: 11.00 -->
@@ -273,7 +273,7 @@
 		</tr>
 
 		<!-- schedule row 9 -->
-		<tr id="r9">
+		<tr id="schedule-row-9">
 			<td class="empty" rowspan="3"></td>
 			<!-- time scale cell: 11.15 -->
 			<td class="timescale quarter"></td>
@@ -293,7 +293,7 @@
 		</tr>
 
 		<!-- schedule row 10 -->
-		<tr id="r10">
+		<tr id="schedule-row-10">
 			<td class="empty" rowspan="2"></td>
 			<!-- time scale cell: 11.30 -->
 			<td class="timescale halfhour"></td>
@@ -313,7 +313,7 @@
 		</tr>
 
 		<!-- schedule row 11 -->
-		<tr id="r11">
+		<tr id="schedule-row-11">
 			<!-- time scale cell: 11.45 -->
 			<td class="timescale quarter"></td>
 			<td class="cell c1"></td>
@@ -332,7 +332,7 @@
 		</tr>
 
 		<!-- schedule row 12 -->
-		<tr id="r12">
+		<tr id="schedule-row-12">
 			<!-- time indication cell: 12 am -->
 			<td class="timeindication" rowspan="2">12</td>
 			<!-- time scale cell: 12.00 -->
@@ -353,7 +353,7 @@
 		</tr>
 
 		<!-- schedule row 13 -->
-		<tr id="r13">
+		<tr id="schedule-row-13">
 			<td class="empty" rowspan="3"></td>
 			<!-- time scale cell: 12.15 -->
 			<td class="timescale quarter"></td>
@@ -373,7 +373,7 @@
 		</tr>
 
 		<!-- schedule row 14 -->
-		<tr id="r14">
+		<tr id="schedule-row-14">
 			<td class="empty" rowspan="2"></td>
 			<!-- time scale cell: 12.30 -->
 			<td class="timescale halfhour"></td>
@@ -393,7 +393,7 @@
 		</tr>
 
 		<!-- schedule row 15 -->
-		<tr id="r15">
+		<tr id="schedule-row-15">
 			<!-- time scale cell: 12.45 -->
 			<td class="timescale quarter"></td>
 			<td class="cell c1"></td>
@@ -412,7 +412,7 @@
 		</tr>
 
 		<!-- schedule row 16 -->
-		<tr id="r16">
+		<tr id="schedule-row-16">
 			<!-- time indication cell: 13 am -->
 			<td class="timeindication" rowspan="2">13</td>
 			<!-- time scale cell: 13.00 -->
@@ -433,7 +433,7 @@
 		</tr>
 
 		<!-- schedule row 17 -->
-		<tr id="r17">
+		<tr id="schedule-row-17">
 			<td class="empty" rowspan="3"></td>
 			<!-- time scale cell: 13.15 -->
 			<td class="timescale quarter"></td>
@@ -453,7 +453,7 @@
 		</tr>
 
 		<!-- schedule row 18 -->
-		<tr id="r18">
+		<tr id="schedule-row-18">
 			<td class="empty" rowspan="2"></td>
 			<!-- time scale cell: 13.30 -->
 			<td class="timescale halfhour"></td>
@@ -473,7 +473,7 @@
 		</tr>
 
 		<!-- schedule row 19 -->
-		<tr id="r19">
+		<tr id="schedule-row-19">
 			<!-- time scale cell: 13.45 -->
 			<td class="timescale quarter"></td>
 			<td class="cell c1"></td>
@@ -492,7 +492,7 @@
 		</tr>
 
 		<!-- schedule row 20 -->
-		<tr id="r20">
+		<tr id="schedule-row-20">
 			<!-- time indication cell: 14 am -->
 			<td class="timeindication" rowspan="2">14</td>
 			<!-- time scale cell: 14.00 -->
@@ -513,7 +513,7 @@
 		</tr>
 
 		<!-- schedule row 21 -->
-		<tr id="r21">
+		<tr id="schedule-row-21">
 			<td class="empty" rowspan="3"></td>
 			<!-- time scale cell: 14.15 -->
 			<td class="timescale quarter"></td>
@@ -533,7 +533,7 @@
 		</tr>
 
 		<!-- schedule row 22 -->
-		<tr id="r22">
+		<tr id="schedule-row-22">
 			<td class="empty" rowspan="2"></td>
 			<!-- time scale cell: 14.30 -->
 			<td class="timescale halfhour"></td>
@@ -553,7 +553,7 @@
 		</tr>
 
 		<!-- schedule row 23 -->
-		<tr id="r23">
+		<tr id="schedule-row-23">
 			<!-- time scale cell: 14.45 -->
 			<td class="timescale quarter"></td>
 			<td class="cell c1"></td>
@@ -572,7 +572,7 @@
 		</tr>
 
 		<!-- schedule row 24 -->
-		<tr id="r24">
+		<tr id="schedule-row-24">
 			<!-- time indication cell: 15 am -->
 			<td class="timeindication" rowspan="2">15</td>
 			<!-- time scale cell: 15.00 -->
@@ -593,7 +593,7 @@
 		</tr>
 
 		<!-- schedule row 25 -->
-		<tr id="r25">
+		<tr id="schedule-row-25">
 			<td class="empty" rowspan="3"></td>
 			<!-- time scale cell: 15.15 -->
 			<td class="timescale quarter"></td>
@@ -613,7 +613,7 @@
 		</tr>
 
 		<!-- schedule row 26 -->
-		<tr id="r26">
+		<tr id="schedule-row-26">
 			<td class="empty" rowspan="2"></td>
 			<!-- time scale cell: 15.30 -->
 			<td class="timescale halfhour"></td>
@@ -633,7 +633,7 @@
 		</tr>
 
 		<!-- schedule row 27 -->
-		<tr id="r27">
+		<tr id="schedule-row-27">
 			<!-- time scale cell: 15.45 -->
 			<td class="timescale quarter"></td>
 			<td class="cell c1"></td>
@@ -652,7 +652,7 @@
 		</tr>
 
 		<!-- schedule row 28 -->
-		<tr id="r28">
+		<tr id="schedule-row-28">
 			<!-- time indication cell: 16 am -->
 			<td class="timeindication" rowspan="2">16</td>
 			<!-- time scale cell: 16.00 -->
@@ -673,8 +673,8 @@
 		</tr>
 
 		<!-- bottom row -->
-		<tr>
-			<td class="empty" colspan="16"></td>
+		<tr id="bottom-row">
+			<td id="bottom" class="empty" colspan="16"></td>
 		</tr>
 
 	</table>
