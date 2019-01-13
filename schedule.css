@@ -37,20 +37,20 @@ body {
 
 /* ------ borders ------ */
 
-.stations th:not(.empty), .floors th:not(.empty):not(.timescale), #timestaple{
+.stations th:not(.empty), .floors th:not(.empty):not(.timeindication), #timestaple{
 	border: 1px solid black;
 }
 
-td:not(.empty){
+td:not(.empty):not(.timescale){
 	border-left:1px solid black;
 	border-right:1px solid black;
 }
 
-.r1 td, .r13 td, .r17 td, #lunch {
+.r1 td:not(.timescale), .r13 td:not(.timescale), .r17 td:not(.timescale), #lunch {
 	border-top:1px solid black;
 }
 
-.r12 td, .r16 td, .r28 td, #lunch {
+.r12 td:not(.timescale), .r16 td:not(.timescale), .r28 td:not(.timescale), #lunch {
 	border-bottom:1px solid black;
 }
 
@@ -68,21 +68,36 @@ td, th {
 	text-align: center;	
 }
 
-table col:not(#timestaplecol):not(#timescalecol):not(#col13){
+table col:not(#timestaple-col):not(#timeindication-col):not(#timescale-col1):not(#timescale-col2):not(#col13){
 	width: 75px;
 }
 
-#timestaplecol {
+#timestaple-col {
 	width: 90px;
 }
 
-#timescalecol {
+#timeindication-col {
 	width: 30px;
+}
+
+#timescale-col1 {
+	width: 4px;
+}
+
+#timescale-col2 {
+	width: 8px;
 }
 
 #col13 {
 	width: 100px;
 }
+
+
+.timescale.hour, .timescale.halfhour {
+	border-bottom:1px solid black;
+}
+
+
 
 #timestaple {
 	position: relative;	
