@@ -91,7 +91,7 @@ function runTimeStaple() {
 }
 
 
-function fillCells(station, name, startHour, startMinute, endHour, endMinute, clear) {
+function fillCells(station, name, note, startHour, startMinute, endHour, endMinute, clear) {
 	var column;
 	var color;
 
@@ -165,8 +165,12 @@ function fillCells(station, name, startHour, startMinute, endHour, endMinute, cl
     }
 
     var nameCell = Math.round(startCell + (endCell - startCell) / 2 - 1).toString();
-       
-    e[nameCell].innerHTML = name.bold();
+
+    e[nameCell].innerHTML = name;
+
+    var noteCell = startCell + 1;
+
+	e[noteCell].innerHTML = note;    
 
     /*
     console.log("station: " + station);
@@ -189,7 +193,7 @@ function fillCells(station, name, startHour, startMinute, endHour, endMinute, cl
 function clearSchedule() {
 	var stations = ["laundry", "cleaning_upstairs", "cleaning_downstairs", "baking_upstairs", "baking_downstairs", "sandwiches", "serving_1", "serving_2", "serving_3", "counter", "washing", "catering", "individual"];
 	for (var i = 0; i < stations.length; i++) {
-		fillCells(stations[i], "", firstHour, 0, lastHour, 0, true);
+		fillCells(stations[i], "", "", firstHour, 0, lastHour, 0, true);
 	}
 }
 
@@ -221,12 +225,13 @@ function parseXML(xmlDoc) {
 
         var station = workingPeriods[i].getElementsByTagName("station")[0].childNodes[0].nodeValue;
         var name = workingPeriods[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+        var note = workingPeriods[i].getElementsByTagName("note")[0].childNodes[0].nodeValue;
         var startHour = workingPeriods[i].getElementsByTagName("start_hour")[0].childNodes[0].nodeValue;
         var startMinute = workingPeriods[i].getElementsByTagName("start_minute")[0].childNodes[0].nodeValue;
         var endHour = workingPeriods[i].getElementsByTagName("end_hour")[0].childNodes[0].nodeValue;
         var endMinute = workingPeriods[i].getElementsByTagName("end_minute")[0].childNodes[0].nodeValue;
 		
-		fillCells(station, name, parseInt(startHour), parseInt(startMinute), parseInt(endHour), parseInt(endMinute), false);
+		fillCells(station, name, note, parseInt(startHour), parseInt(startMinute), parseInt(endHour), parseInt(endMinute), false);
 	}
 }
 
@@ -272,15 +277,15 @@ function clearWorkingPeriod(station, period) {
 			endHour = 16;   
 	}
 
-	fillCells(station, "", startHour, 0, endHour, 0, true);
+	fillCells(station, "", "", startHour, 0, endHour, 0, true);
 }
 
 
-function update(station, name, startHour, startMinute, endHour, endMinute) {
+function update(station, name, note, startHour, startMinute, endHour, endMinute) {
 	if (name == "") {
 		alert("Ange ett namn på personen");
 	} else {
-		fillCells(station, name, startHour, startMinute, endHour, endMinute, false);
+		fillCells(station, name, note, startHour, startMinute, endHour, endMinute, false);
 	}
 }
 

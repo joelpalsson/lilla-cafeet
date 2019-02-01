@@ -23,6 +23,17 @@ function getNameInput() {
 	return name.toUpperCase();
 }
 
+function getNoteInput() {
+    var e = document.getElementById("note_input");
+    var note = "";
+    var i;
+    for (i = 0; i < e.length; i++) {
+        note = note + e.elements[i].value;
+    }
+	//console.log(name);
+	return note
+}
+
 function getStartHoursInput() {
 	var startHours = parseInt(document.getElementById("start_hour").value);
 	//console.log(typeof startHours);
@@ -55,12 +66,13 @@ function clearButtonClick() {
 
 function updateButtonClick() {
 	var name = getNameInput();
+	var note = getNoteInput();
 	var station = getStationInput();
 	var startHour = getStartHoursInput();
 	var startMinute = getStartMinutesInput();
 	var endHour = getEndHoursInput();
 	var endMinute = getEndMinutesInput();
-	window.opener.update(station, name, startHour, startMinute, endHour, endMinute);
+	window.opener.update(station, name, note, startHour, startMinute, endHour, endMinute);
 }
 
 function generateDayButtonClick() {

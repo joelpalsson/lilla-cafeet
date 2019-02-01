@@ -4,6 +4,7 @@
 	<working_period>
 		<station>laundry</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -12,6 +13,7 @@
 	<working_period>
 		<station>cleaning_upstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -20,6 +22,7 @@
 	<working_period>
 		<station>cleaning_downstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -28,6 +31,7 @@
 	<working_period>
 		<station>baking_upstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -36,6 +40,7 @@
 	<working_period>
 		<station>baking_downstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -44,6 +49,7 @@
 	<working_period>
 		<station>sandwiches</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -52,6 +58,7 @@
 	<working_period>
 		<station>serving_1</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -60,6 +67,7 @@
 	<working_period>
 		<station>serving_2</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -68,6 +76,7 @@
 	<working_period>
 		<station>serving_3</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -76,6 +85,7 @@
 	<working_period>
 		<station>counter</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -84,6 +94,7 @@
 	<working_period>
 		<station>washing</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -92,6 +103,7 @@
 	<working_period>
 		<station>catering</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -100,6 +112,7 @@
 	<working_period>
 		<station>individual</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>9</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>12</end_hour>
@@ -109,6 +122,7 @@
 	<working_period>
 		<station>laundry</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -117,6 +131,7 @@
 	<working_period>
 		<station>cleaning_upstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -125,6 +140,7 @@
 	<working_period>
 		<station>cleaning_downstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -133,6 +149,7 @@
 	<working_period>
 		<station>baking_upstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -141,6 +158,7 @@
 	<working_period>
 		<station>baking_downstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -149,6 +167,7 @@
 	<working_period>
 		<station>sandwiches</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -157,6 +176,7 @@
 	<working_period>
 		<station>serving_1</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -165,6 +185,7 @@
 	<working_period>
 		<station>serving_2</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -173,6 +194,7 @@
 	<working_period>
 		<station>serving_3</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -181,6 +203,7 @@
 	<working_period>
 		<station>counter</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -189,6 +212,7 @@
 	<working_period>
 		<station>washing</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -197,6 +221,7 @@
 	<working_period>
 		<station>catering</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -205,6 +230,7 @@
 	<working_period>
 		<station>individual</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>12</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>13</end_hour>
@@ -214,6 +240,7 @@
 	<working_period>
 		<station>laundry</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -222,6 +249,7 @@
 	<working_period>
 		<station>cleaning_upstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -230,6 +258,7 @@
 	<working_period>
 		<station>cleaning_downstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -238,6 +267,7 @@
 	<working_period>
 		<station>baking_upstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -246,6 +276,7 @@
 	<working_period>
 		<station>baking_downstairs</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -254,6 +285,7 @@
 	<working_period>
 		<station>sandwiches</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -262,6 +294,7 @@
 	<working_period>
 		<station>serving_1</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -270,6 +303,7 @@
 	<working_period>
 		<station>serving_2</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -278,6 +312,7 @@
 	<working_period>
 		<station>serving_3</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -286,6 +321,7 @@
 	<working_period>
 		<station>counter</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -294,6 +330,7 @@
 	<working_period>
 		<station>washing</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -302,6 +339,7 @@
 	<working_period>
 		<station>catering</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
@@ -310,6 +348,7 @@
 	<working_period>
 		<station>individual</station>
 		<name>?</name>
+		<note> </note>
 		<start_hour>13</start_hour>
 		<start_minute>0</start_minute>
 		<end_hour>16</end_hour>
