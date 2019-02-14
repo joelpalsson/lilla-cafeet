@@ -170,7 +170,9 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
 
     var noteCell = startCell + 1;
 
-	e[noteCell].innerHTML = note;    
+    if (noteCell != nameCell) {
+		e[noteCell].innerHTML = note;	
+    }
 
     /*
     console.log("station: " + station);
