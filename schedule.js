@@ -166,7 +166,7 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
 
     var nameCell = Math.round(startCell + (endCell - startCell) / 2 - 1).toString();
 
-    e[nameCell].innerHTML = name;
+    e[nameCell].innerHTML = name.toUpperCase().bold();
 
     var noteCell = startCell + 1;
 

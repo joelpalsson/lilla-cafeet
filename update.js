@@ -20,7 +20,7 @@ function getNameInput() {
         name = name + e.elements[i].value;
     }
 	//console.log(name);
-	return name.toUpperCase();
+	return name;
 }
 
 function getNoteInput() {
@@ -31,7 +31,7 @@ function getNoteInput() {
         note = note + e.elements[i].value;
     }
 	//console.log(name);
-	return note
+	return note;
 }
 
 function getStartHoursInput() {
