@@ -7,6 +7,9 @@ body {
 
 table {
 	border-collapse: collapse;
+	width:94%;
+	margin-left:1%;
+	margin-right:5%;
 }
 
 
