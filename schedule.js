@@ -228,12 +228,18 @@ function parseXML(xmlDoc) {
         var station = workingPeriods[i].getElementsByTagName("station")[0].childNodes[0].nodeValue;
         var name = workingPeriods[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
         var note = workingPeriods[i].getElementsByTagName("note")[0].childNodes[0].nodeValue;
-        var startHour = workingPeriods[i].getElementsByTagName("start_hour")[0].childNodes[0].nodeValue;
-        var startMinute = workingPeriods[i].getElementsByTagName("start_minute")[0].childNodes[0].nodeValue;
-        var endHour = workingPeriods[i].getElementsByTagName("end_hour")[0].childNodes[0].nodeValue;
-        var endMinute = workingPeriods[i].getElementsByTagName("end_minute")[0].childNodes[0].nodeValue;
+        var startTime = workingPeriods[i].getElementsByTagName("start_time")[0].childNodes[0].nodeValue;
+        var endTime = workingPeriods[i].getElementsByTagName("end_time")[0].childNodes[0].nodeValue;
 		
-		fillCells(station, name, note, parseInt(startHour), parseInt(startMinute), parseInt(endHour), parseInt(endMinute), false);
+		var startTimeUnits = startTime.split(":");
+		var endTimeUnits = endTime.split(":");
+
+        var startHour = parseInt(startTimeUnits[0]);
+        var startMinute = parseInt(startTimeUnits[1]);
+        var endHour = parseInt(endTimeUnits[0]);
+        var endMinute = parseInt(endTimeUnits[1]);
+
+		fillCells(station, name, note, startHour, startMinute, endHour, endMinute, false);
 	}
 }
 
