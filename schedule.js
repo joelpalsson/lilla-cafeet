@@ -227,10 +227,13 @@ function parseXML(xmlDoc) {
 
         var station = workingPeriods[i].getElementsByTagName("station")[0].childNodes[0].nodeValue;
         var name = workingPeriods[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
-        var note = workingPeriods[i].getElementsByTagName("note")[0].childNodes[0].nodeValue;
         var startTime = workingPeriods[i].getElementsByTagName("start_time")[0].childNodes[0].nodeValue;
         var endTime = workingPeriods[i].getElementsByTagName("end_time")[0].childNodes[0].nodeValue;
-		
+		var note = "";
+		try {
+			note = workingPeriods[i].getElementsByTagName("note")[0].childNodes[0].nodeValue;
+		} catch (e) {}
+
 		var startTimeUnits = startTime.split(":");
 		var endTimeUnits = endTime.split(":");
 
