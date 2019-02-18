@@ -75,10 +75,8 @@ function updateButtonClick() {
 
 	if (name == "") {
 		alert("Ange ett namn på personen");
-		return;
 	} else if (startHour > endHour) {
 		alert("Ange en sluttid som infaller efter starttiden");
-		return;
 	} else {
 		window.opener.fillCells(station, name, note, startHour, startMinute, endHour, endMinute, false);
 	}

@@ -1,5 +1,8 @@
+var stations = ["laundry", "cleaning_upstairs", "cleaning_downstairs", "baking_upstairs", "baking_downstairs", "sandwiches", "serving_1", "serving_2", "serving_3", "counter", "washing", "catering", "individual"];
 var firstHour = 9;
+var firstMinute = 0;
 var lastHour = 16;
+var lastMinute = 0;
 var minimumTimeUnit = 15;
 
 var today;
@@ -193,7 +196,6 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
 
 
 function clearSchedule() {
-	var stations = ["laundry", "cleaning_upstairs", "cleaning_downstairs", "baking_upstairs", "baking_downstairs", "sandwiches", "serving_1", "serving_2", "serving_3", "counter", "washing", "catering", "individual"];
 	for (var i = 0; i < stations.length; i++) {
 		fillCells(stations[i], "", "", firstHour, 0, lastHour, 0, true);
 	}
@@ -208,42 +210,222 @@ function generateDateHeader(today) {
 }
 
 
-function loadXML(file) {
+function loadXML(filePath) {
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            parseXML(this.responseXML);
-        }
-    };
-    xhttp.open("GET", file, true);
-    xhttp.send();
+
+	xhttp.open("GET", filePath, true);
+	xhttp.send();
+
+	xhttp.onreadystatechange = function() {
+	//console.log("state changed! - readyState: " + this.readyState, ", status: " + this.status);
+		if (this.readyState == 4) {
+			if (this.status == 0) {
+				alert("The file \"" + filePath + " could not be found!");
+			} else if (this.status == 200) {
+				parseXML(this.responseXML, filePath);
+			}
+		}
+	};
 }
 
 
-function parseXML(xmlDoc) {
+function parseXML(xmlDoc, filePath) {
     var workingPeriods = xmlDoc.getElementsByTagName("working_period");
-    //console.log(workingPeriods);
+    console.log(workingPeriods);
+
+    if (workingPeriods.length == 0) {
+		alert("Filen \"" + filePath + "\" innehåller inga arbetspass!");
+		return;
+	}
+
     for (var i = 0; i < workingPeriods.length; i++) {
 
-        var station = workingPeriods[i].getElementsByTagName("station")[0].childNodes[0].nodeValue;
-        var name = workingPeriods[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
-        var startTime = workingPeriods[i].getElementsByTagName("start_time")[0].childNodes[0].nodeValue;
-        var endTime = workingPeriods[i].getElementsByTagName("end_time")[0].childNodes[0].nodeValue;
+		var id = i + 1;
+		var tag = ""
+		var elements;
+		var station = "";
+		var name = "";
+		var startTime = "";
+		var endTime = "";
 		var note = "";
+		var timeStampPattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+
+		// Obtain validate the working station
+		tag = "station";
+		elements = workingPeriods[i].getElementsByTagName(tag);
+
+		if (elements.length == 0) {
+			alert(getElementNotFoundString(filePath, id, tag));
+			continue;
+		}
+
 		try {
-			note = workingPeriods[i].getElementsByTagName("note")[0].childNodes[0].nodeValue;
-		} catch (e) {}
+			station = elements[0].childNodes[0].nodeValue;
+		} catch (e) {
+			alert(getElementEmptyString(filePath, id, tag));
+			continue;
+		}
+
+		console.log("station: " + station);
+
+		if (stations.indexOf(station) == -1) {
+			alert(getInvalidValueString(filePath, id, tag));
+			continue;
+		}
+
+		// Obtain the name
+		tag = "name";
+		elements = workingPeriods[i].getElementsByTagName(tag);
+
+		if (elements.length == 0) {
+			alert(getElementNotFoundString(filePath, id, tag));
+			continue;
+		}
+
+		try {
+			name = elements[0].childNodes[0].nodeValue;
+		} catch (e) {
+			alert(getElementEmptyString(filePath, id, tag));
+			continue;
+		}
+
+		console.log("name: " + name);
+
+		// Obtain the start time
+		tag = "start_time";
+		elements = workingPeriods[i].getElementsByTagName(tag);
+
+		if (elements.length == 0) {
+			alert(getElementNotFoundString(filePath, id, tag));
+			continue;
+		}
+
+		try {
+			startTime = elements[0].childNodes[0].nodeValue;
+		} catch (e) {
+			alert(getElementEmptyString(filePath, id, tag));
+			continue;
+		}
+
+		console.log("startTime: " + startTime);
 
 		var startTimeUnits = startTime.split(":");
-		var endTimeUnits = endTime.split(":");
+		var startHour = parseInt(startTimeUnits[0]);
+		var startMinute = parseInt(startTimeUnits[1]);
 
-        var startHour = parseInt(startTimeUnits[0]);
-        var startMinute = parseInt(startTimeUnits[1]);
-        var endHour = parseInt(endTimeUnits[0]);
-        var endMinute = parseInt(endTimeUnits[1]);
+		if (!startTime.match(timeStampPattern)) {
+			alert(getInvalidTimeFormatString(filePath, id, tag));
+			continue;
+		}
+
+		if (startMinute % minimumTimeUnit != 0) {
+			alert(getMinuteIntervalString(filePath, id, tag));
+			continue;
+		}
+
+		var lastStartHour = (lastMinute == 0) ? (lastHour - 1):lastHour;
+		var lastStartMinute = (lastMinute == 0) ? (60 - minimumTimeUnit):(lastMinute - minimumTimeUnit);
+
+		if ((startHour < firstHour || (startHour == firstHour && startMinute < firstMinute)) || (startHour > lastStartHour || (startHour == lastStartHour && startMinute > lastStartMinute))) {
+			alert(getInvalidTimeIntervalString(filePath, id, tag, firstHour, firstMinute, lastStartHour, lastStartMinute));
+			continue;
+		}
+
+		// Obtain the end time
+		tag = "end_time";
+		elements = workingPeriods[i].getElementsByTagName(tag);
+
+		if (elements.length == 0) {
+			alert(getElementNotFoundString(filePath, id, tag));
+			continue;
+		}
+
+		try {
+			endTime = elements[0].childNodes[0].nodeValue;
+		} catch (e) {
+			alert(getElementEmptyString(filePath, id, tag));
+			continue;
+		}
+
+		console.log("endTime: " + endTime);
+
+		var endTimeUnits = endTime.split(":");
+		var endHour = parseInt(endTimeUnits[0]);
+		var endMinute = parseInt(endTimeUnits[1]);
+
+		if (!endTime.match(timeStampPattern)) {
+			alert(getInvalidTimeFormatString(filePath, id, tag));
+			continue;
+		}
+
+		if (endMinute % minimumTimeUnit != 0) {
+			alert(getMinuteIntervalString(filePath, id, tag));
+			continue;
+		}
+
+		/*
+		var firstEndHour = (firstMinute == (60 - minimumTimeUnit)) ? (firstHour + 1):firstHour;
+		var firstEndMinute = (firstMinute == (60 - minimumTimeUnit)) ? 0:(firstMinute + minimumTimeUnit);
+
+		if ((endMinute % minimumTimeUnit != 0) || (endHour < firstEndHour || (endHour == firstEndHour && endMinute < firstEndMinute)) || (endHour > lastHour || (endHour == lastHour && endMinute > lastMinute))) {
+			alert(getInvalidTimeIntervalString(filePath, id, tag, firstEndHour, firstEndMinute, lastHour, lastMinute));
+			continue;
+		}
+		*/
+
+		var firstEndHour = (startMinute == (60 - minimumTimeUnit)) ? (startHour + 1):startHour;
+		var firstEndMinute = (startMinute == (60 - minimumTimeUnit)) ? 0:(startMinute + minimumTimeUnit);
+
+		if ((endHour < firstEndHour || (endHour == firstEndHour && endMinute < firstEndMinute)) || (endHour > lastHour || (endHour == lastHour && endMinute > lastMinute))) {
+			alert(getInvalidTimeIntervalString(filePath, id, tag, firstEndHour, firstEndMinute, lastHour, lastMinute));
+			continue;
+		}
+
+		// Obtain the note if it exists
+		tag = "note";
+		try {
+			note = workingPeriods[i].getElementsByTagName(tag)[0].childNodes[0].nodeValue;
+		} catch (e) {}
+
+		console.log("note: " + note);
 
 		fillCells(station, name, note, startHour, startMinute, endHour, endMinute, false);
+
+		console.log("\n");
 	}
+}
+
+
+function getFeedbackBaseString(filePath, id) {
+	return "Arbetspass nr. " + id.toString() + " i filen " + "\"" + filePath + "\"" + " kunde inte läsas in.\n\nOrsak: "
+}
+
+function getElementNotFoundString(filePath, id, tag) {
+	 return getFeedbackBaseString(filePath, id) + " Elementet " + "\"" + tag + "\" saknas.";
+}
+
+function getElementEmptyString(filePath, id, tag) {
+	return getFeedbackBaseString(filePath, id) + "Elementet " + "\"" + tag + "\" är tomt.";
+}
+
+function getInvalidValueString(filePath, id, tag) {
+	return getFeedbackBaseString(filePath, id) + "Elementet " + "\"" + tag + "\" har ett ogiltigt värde.";
+}
+
+function getInvalidTimeFormatString(filePath, id, tag) {
+	return getFeedbackBaseString(filePath, id) + "Elementet " + "\"" + tag + "\" har ett ogiltigt format. Tiden måste anges på formatet hh:mm.";
+}
+
+function getMinuteIntervalString(filePath, id, tag) {
+	return getFeedbackBaseString(filePath, id) + "Minuttalet i elementet \"" + tag + "\" måste vara en multipel av " + minimumTimeUnit + ".";
+}
+
+function getTimeString(hours, minutes) {
+	return ((hours < 10) ? ("0" + hours.toString()):hours.toString()) + ":" + ((minutes == 0) ? "00":minutes.toString());
+}
+
+function getInvalidTimeIntervalString(filePath, id, tag, firstHour, firstMinute, lastHour, lastMinute) {
+	return getFeedbackBaseString(filePath, id) + "Elementet " + "\"" + tag + "\" har ett otillåtet värde. Tiden måste infalla mellan " + getTimeString(firstHour, firstMinute) + " och " + getTimeString(lastHour, lastMinute) + ".";
 }
 
 
