@@ -33,65 +33,51 @@ function adjustTimeStapleSections() {
 
 
 function runTimeStaple() {
-	var stapleHeight = parseInt(document.getElementById("timestaple").clientHeight) + 1;
-	var timeUnitHeight = stapleHeight / ((lastHour - firstHour) * 60);
+	var defaultStapleHeight = parseInt(document.getElementById("timestaple").clientHeight) + 1;
+	var totalNbrMinutes = (lastHour - firstHour) * 60;
 	
 	var id = setInterval(initiateTimeStaple, 1000);
 	
 	function initiateTimeStaple() {
 		
-		//console.log("waiting for initiation");
-
 		var currentDate = new Date();
 		var currentHour = currentDate.getHours();
 		var currentMinute = currentDate.getMinutes();
 		var currentSecond = currentDate.getSeconds();
 
 		if (currentHour >= firstHour && currentHour <= lastHour) {
-			
-			clearInterval(id);
-			var scheduleTotalMinutes = (lastHour - firstHour) * 60;
-			var currentTotalMinutes = (currentHour - firstHour) * 60 + currentMinute;
-			var partOfHeight = 1 - currentTotalMinutes / scheduleTotalMinutes;
-			stapleHeight = partOfHeight * stapleHeight;
 
+			clearInterval(id);
+
+			var remainingNbrMinutes = (lastHour - currentHour) * 60 - currentMinute;
+			var stapleHeight = remainingNbrMinutes / totalNbrMinutes * defaultStapleHeight;
 			document.getElementById("time").style.height = stapleHeight + "px";
 			
 			id = setInterval(updateTimeStaple, 1000);
 			
-			function updateTimeStaple(){
-				var currentDate = new Date();
-				var currentHour = currentDate.getHours();
-				var currentMinute = currentDate.getMinutes();
-				var currentSecond = currentDate.getSeconds();
-				
-				//console.log(currentSecond);
-				
+			function updateTimeStaple() {
+				currentDate = new Date();
+				currentHour = currentDate.getHours();
+				currentMinute = currentDate.getMinutes();
+				currentSecond = currentDate.getSeconds();
+
 				if (stapleHeight > 0) {
-					if (currentSecond == 01) {
-						stapleHeight -= timeUnitHeight;
-						if (stapleHeight < 0) {
-							stapleHeight = 0;
-						}	
+					if (currentSecond == 0) {
+						remainingNbrMinutes = (lastHour - currentHour) * 60 - currentMinute;
+						stapleHeight = remainingNbrMinutes / totalNbrMinutes * defaultStapleHeight;
 						document.getElementById("time").style.height = stapleHeight + "px";
 					}
 				} else {
-
-					//console.log("staple on the ground");
-					
 					clearInterval(id);
-
-					//console.log("updating stopped");
-					
 					id = setInterval(initiateTimeStaple, 1000);
-
-					//console.log(currentSecond);
-
 				}	
 			}
 		}
 	}
 }
+
+
+
 
 
 function fillCells(station, name, note, startHour, startMinute, endHour, endMinute, clear) {
