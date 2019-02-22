@@ -3,7 +3,7 @@ var firstHour = 9;
 var firstMinute = 0;
 var lastHour = 16;
 var lastMinute = 0;
-var minimumTimeUnit = 15;
+var minNbrMinutes = 15;
 
 var today;
 var xmlDoc;
@@ -18,17 +18,17 @@ function fillTimeStaple() {
 
 
 function adjustTimeStapleSections() {
-	var minimumTimeUnitHeight = parseInt(document.getElementById("minimumTimeUnit").clientHeight);
-	//console.log("minimumTimeUnitHeight:" + minimumTimeUnitHeight);
-	document.getElementById("am").style.height = 1 * minimumTimeUnitHeight + "px";
-	document.getElementById("am").style.paddingTop = 5 * minimumTimeUnitHeight + "px";
-	document.getElementById("am").style.paddingBottom = 6 * minimumTimeUnitHeight + "px";
-	document.getElementById("lunch").style.height = 1 * minimumTimeUnitHeight + "px";
-	document.getElementById("lunch").style.paddingTop = 1 * minimumTimeUnitHeight + "px";
-	document.getElementById("lunch").style.paddingBottom = 2 * minimumTimeUnitHeight + "px";
-	document.getElementById("pm").style.height = 1 * minimumTimeUnitHeight + "px";
-	document.getElementById("pm").style.paddingTop = 5 * minimumTimeUnitHeight + "px";
-	document.getElementById("pm").style.paddingBottom = 6 * minimumTimeUnitHeight + "px";
+	var minTimePeriodHeight = parseInt(document.getElementById("minTimePeriod").clientHeight);
+	//console.log("minTimePeriodHeight:" + minTimePeriodHeight);
+	document.getElementById("am").style.height = 1 * minTimePeriodHeight + "px";
+	document.getElementById("am").style.paddingTop = 5 * minTimePeriodHeight + "px";
+	document.getElementById("am").style.paddingBottom = 6 * minTimePeriodHeight + "px";
+	document.getElementById("lunch").style.height = 1 * minTimePeriodHeight + "px";
+	document.getElementById("lunch").style.paddingTop = 1 * minTimePeriodHeight + "px";
+	document.getElementById("lunch").style.paddingBottom = 2 * minTimePeriodHeight + "px";
+	document.getElementById("pm").style.height = 1 * minTimePeriodHeight + "px";
+	document.getElementById("pm").style.paddingTop = 5 * minTimePeriodHeight + "px";
+	document.getElementById("pm").style.paddingBottom = 6 * minTimePeriodHeight + "px";
 }
 
 
@@ -155,8 +155,8 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
     var e = document.getElementsByClassName(column);
     //console.log("number of cells: " + e.length.toString());
 
-	var startCell = (startHour * 60 + startMinute - firstHour * 60) / minimumTimeUnit;
-	var endCell = ((endHour - firstHour) * 60 + endMinute) / minimumTimeUnit - 1;
+	var startCell = (startHour * 60 + startMinute - firstHour * 60) / minNbrMinutes;
+	var endCell = ((endHour - firstHour) * 60 + endMinute) / minNbrMinutes - 1;
 
     for (var i = startCell; i <= endCell; i++) {
     	if (clear == true) {
@@ -187,7 +187,7 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
 	console.log("endHour: " + endHour.toString());
 	console.log("endMinute: " + endMinute.toString());
 	console.log("firstHour: " + firstHour.toString());
-	console.log("minimumTimeUnit: " + minimumTimeUnit.toString());
+	console.log("minNbrMinutes: " + minNbrMinutes.toString());
 	console.log("startCell: " + startCell.toString());
 	console.log("endCell: " + endCell.toString());
 	console.log("nameCell: " + nameCell);
@@ -318,13 +318,13 @@ function parseXML(xmlDoc, filePath) {
 			continue;
 		}
 
-		if (startMinute % minimumTimeUnit != 0) {
+		if (startMinute % minNbrMinutes != 0) {
 			alert(getMinuteIntervalString(filePath, id, tag));
 			continue;
 		}
 
 		var lastStartHour = (lastMinute == 0) ? (lastHour - 1):lastHour;
-		var lastStartMinute = (lastMinute == 0) ? (60 - minimumTimeUnit):(lastMinute - minimumTimeUnit);
+		var lastStartMinute = (lastMinute == 0) ? (60 - minNbrMinutes):(lastMinute - minNbrMinutes);
 
 		if ((startHour < firstHour || (startHour == firstHour && startMinute < firstMinute)) || (startHour > lastStartHour || (startHour == lastStartHour && startMinute > lastStartMinute))) {
 			alert(getInvalidTimeIntervalString(filePath, id, tag, firstHour, firstMinute, lastStartHour, lastStartMinute));
@@ -358,23 +358,23 @@ function parseXML(xmlDoc, filePath) {
 			continue;
 		}
 
-		if (endMinute % minimumTimeUnit != 0) {
+		if (endMinute % minNbrMinutes != 0) {
 			alert(getMinuteIntervalString(filePath, id, tag));
 			continue;
 		}
 
 		/*
-		var firstEndHour = (firstMinute == (60 - minimumTimeUnit)) ? (firstHour + 1):firstHour;
-		var firstEndMinute = (firstMinute == (60 - minimumTimeUnit)) ? 0:(firstMinute + minimumTimeUnit);
+		var firstEndHour = (firstMinute == (60 - minNbrMinutes)) ? (firstHour + 1):firstHour;
+		var firstEndMinute = (firstMinute == (60 - minNbrMinutes)) ? 0:(firstMinute + minNbrMinutes);
 
-		if ((endMinute % minimumTimeUnit != 0) || (endHour < firstEndHour || (endHour == firstEndHour && endMinute < firstEndMinute)) || (endHour > lastHour || (endHour == lastHour && endMinute > lastMinute))) {
+		if ((endMinute % minNbrMinutes != 0) || (endHour < firstEndHour || (endHour == firstEndHour && endMinute < firstEndMinute)) || (endHour > lastHour || (endHour == lastHour && endMinute > lastMinute))) {
 			alert(getInvalidTimeIntervalString(filePath, id, tag, firstEndHour, firstEndMinute, lastHour, lastMinute));
 			continue;
 		}
 		*/
 
-		var firstEndHour = (startMinute == (60 - minimumTimeUnit)) ? (startHour + 1):startHour;
-		var firstEndMinute = (startMinute == (60 - minimumTimeUnit)) ? 0:(startMinute + minimumTimeUnit);
+		var firstEndHour = (startMinute == (60 - minNbrMinutes)) ? (startHour + 1):startHour;
+		var firstEndMinute = (startMinute == (60 - minNbrMinutes)) ? 0:(startMinute + minNbrMinutes);
 
 		if ((endHour < firstEndHour || (endHour == firstEndHour && endMinute < firstEndMinute)) || (endHour > lastHour || (endHour == lastHour && endMinute > lastMinute))) {
 			alert(getInvalidTimeIntervalString(filePath, id, tag, firstEndHour, firstEndMinute, lastHour, lastMinute));
@@ -417,7 +417,7 @@ function getInvalidTimeFormatString(filePath, id, tag) {
 }
 
 function getMinuteIntervalString(filePath, id, tag) {
-	return getFeedbackBaseString(filePath, id) + "Minuttalet i elementet \"" + tag + "\" måste vara en multipel av " + minimumTimeUnit + ".";
+	return getFeedbackBaseString(filePath, id) + "Minuttalet i elementet \"" + tag + "\" måste vara en multipel av " + minNbrMinutes + ".";
 }
 
 function getTimeString(hours, minutes) {
