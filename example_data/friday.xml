@@ -4,276 +4,276 @@
 	<working_period>
 		<station>laundry</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>cleaning_upstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>cleaning_downstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>baking_upstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>baking_downstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>sandwiches</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>serving_1</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>serving_2</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>serving_3</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>counter</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>washing</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>catering</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>individual</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>09:00</start_time>
 		<end_time>12:00</end_time>
+		<note> </note>
 	</working_period>
 	<!-- LUNCH -->
 	<working_period>
 		<station>laundry</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>cleaning_upstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>cleaning_downstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>baking_upstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>baking_downstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>sandwiches</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>serving_1</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>serving_2</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>serving_3</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>counter</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>washing</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>catering</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>individual</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>12:00</start_time>
 		<end_time>13:00</end_time>
+		<note> </note>
 	</working_period>
 	<!-- PM -->
 	<working_period>
 		<station>laundry</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>cleaning_upstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>cleaning_downstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>baking_upstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>baking_downstairs</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>sandwiches</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>serving_1</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>serving_2</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>serving_3</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>counter</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>washing</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>catering</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 	<working_period>
 		<station>individual</station>
 		<name>?</name>
-		<note> </note>
 		<start_time>13:00</start_time>
 		<end_time>16:00</end_time>
+		<note> </note>
 	</working_period>
 </day>
