@@ -220,198 +220,157 @@ function parseXML(xmlDoc, filePath) {
     console.log(workingPeriods);
 
     if (workingPeriods.length == 0) {
-		alert("Filen \"" + filePath + "\" innehåller inga arbetspass!");
+		alert(getNoPeriodsMsg(filePath));
 		return;
 	}
 
     for (var i = 0; i < workingPeriods.length; i++) {
-
-		var id = i + 1;
-		var tag = ""
-		var elements;
-		var station = "";
-		var name = "";
-		var startTime = "";
-		var endTime = "";
-		var note = "";
-		var timeStampPattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
-
-		// Obtain validate the working station
-		tag = "station";
-		elements = workingPeriods[i].getElementsByTagName(tag);
-
-		if (elements.length == 0) {
-			alert(getElementNotFoundString(filePath, id, tag));
-			continue;
-		}
+		var period = {};
 
 		try {
-			station = elements[0].childNodes[0].nodeValue;
+			period = parseWorkingPeriod(workingPeriods[i]);
 		} catch (e) {
-			alert(getElementEmptyString(filePath, id, tag));
-			continue;
+			alert(getParsingErrorMsg(filePath, i + 1) + e);
+			return;
 		}
 
-		console.log("station: " + station);
+		var nonValidPeriodMsg = validateWorkingPeriod(period);
 
-		if (stations.indexOf(station) == -1) {
-			alert(getInvalidValueString(filePath, id, tag));
-			continue;
+		if (nonValidPeriodMsg != "") {
+			alert(getValidationErrorMsg(filePath, i + 1) + nonValidPeriodMsg);
+			return;
 		}
 
-		// Obtain the name
-		tag = "name";
-		elements = workingPeriods[i].getElementsByTagName(tag);
+		console.log(period);
 
-		if (elements.length == 0) {
-			alert(getElementNotFoundString(filePath, id, tag));
-			continue;
-		}
-
-		try {
-			name = elements[0].childNodes[0].nodeValue;
-		} catch (e) {
-			alert(getElementEmptyString(filePath, id, tag));
-			continue;
-		}
-
-		console.log("name: " + name);
-
-		// Obtain the start time
-		tag = "start_time";
-		elements = workingPeriods[i].getElementsByTagName(tag);
-
-		if (elements.length == 0) {
-			alert(getElementNotFoundString(filePath, id, tag));
-			continue;
-		}
-
-		try {
-			startTime = elements[0].childNodes[0].nodeValue;
-		} catch (e) {
-			alert(getElementEmptyString(filePath, id, tag));
-			continue;
-		}
-
-		console.log("startTime: " + startTime);
-
-		var startTimeUnits = startTime.split(":");
-		var startHour = parseInt(startTimeUnits[0]);
-		var startMinute = parseInt(startTimeUnits[1]);
-
-		if (!startTime.match(timeStampPattern)) {
-			alert(getInvalidTimeFormatString(filePath, id, tag));
-			continue;
-		}
-
-		if (startMinute % minNbrMinutes != 0) {
-			alert(getMinuteIntervalString(filePath, id, tag));
-			continue;
-		}
-
-		var lastStartHour = (lastMinute == 0) ? (lastHour - 1):lastHour;
-		var lastStartMinute = (lastMinute == 0) ? (60 - minNbrMinutes):(lastMinute - minNbrMinutes);
-
-		if ((startHour < firstHour || (startHour == firstHour && startMinute < firstMinute)) || (startHour > lastStartHour || (startHour == lastStartHour && startMinute > lastStartMinute))) {
-			alert(getInvalidTimeIntervalString(filePath, id, tag, firstHour, firstMinute, lastStartHour, lastStartMinute));
-			continue;
-		}
-
-		// Obtain the end time
-		tag = "end_time";
-		elements = workingPeriods[i].getElementsByTagName(tag);
-
-		if (elements.length == 0) {
-			alert(getElementNotFoundString(filePath, id, tag));
-			continue;
-		}
-
-		try {
-			endTime = elements[0].childNodes[0].nodeValue;
-		} catch (e) {
-			alert(getElementEmptyString(filePath, id, tag));
-			continue;
-		}
-
-		console.log("endTime: " + endTime);
-
-		var endTimeUnits = endTime.split(":");
-		var endHour = parseInt(endTimeUnits[0]);
-		var endMinute = parseInt(endTimeUnits[1]);
-
-		if (!endTime.match(timeStampPattern)) {
-			alert(getInvalidTimeFormatString(filePath, id, tag));
-			continue;
-		}
-
-		if (endMinute % minNbrMinutes != 0) {
-			alert(getMinuteIntervalString(filePath, id, tag));
-			continue;
-		}
-
-		/*
-		var firstEndHour = (firstMinute == (60 - minNbrMinutes)) ? (firstHour + 1):firstHour;
-		var firstEndMinute = (firstMinute == (60 - minNbrMinutes)) ? 0:(firstMinute + minNbrMinutes);
-
-		if ((endMinute % minNbrMinutes != 0) || (endHour < firstEndHour || (endHour == firstEndHour && endMinute < firstEndMinute)) || (endHour > lastHour || (endHour == lastHour && endMinute > lastMinute))) {
-			alert(getInvalidTimeIntervalString(filePath, id, tag, firstEndHour, firstEndMinute, lastHour, lastMinute));
-			continue;
-		}
-		*/
-
-		var firstEndHour = (startMinute == (60 - minNbrMinutes)) ? (startHour + 1):startHour;
-		var firstEndMinute = (startMinute == (60 - minNbrMinutes)) ? 0:(startMinute + minNbrMinutes);
-
-		if ((endHour < firstEndHour || (endHour == firstEndHour && endMinute < firstEndMinute)) || (endHour > lastHour || (endHour == lastHour && endMinute > lastMinute))) {
-			alert(getInvalidTimeIntervalString(filePath, id, tag, firstEndHour, firstEndMinute, lastHour, lastMinute));
-			continue;
-		}
-
-		// Obtain the note if it exists
-		tag = "note";
-		try {
-			note = workingPeriods[i].getElementsByTagName(tag)[0].childNodes[0].nodeValue;
-		} catch (e) {}
-
-		console.log("note: " + note);
-
-		fillCells(station, name, note, startHour, startMinute, endHour, endMinute, false);
-
-		console.log("\n");
+		fillCells(period.station, period.name, period.note, period.startHour, period.startMinute, period.endHour, period.endMinute, false);
 	}
 }
 
 
-function getFeedbackBaseString(filePath, id) {
+function parseWorkingPeriod(workingPeriodElement) {
+	var tagNames = ["station", "name", "start_time", "end_time", "note"];
+	var values = [];
+
+	for (var i = 0; i < tagNames.length; i++) {
+		var elements = workingPeriodElement.getElementsByTagName(tagNames[i]);
+		if (elements.length == 0) {
+			if (i < tagNames.length - 1) {
+				throw getElementNotFoundMsg(tagNames[i]);
+			} else {
+				values[i] = "";
+			}
+		} else {
+			var value = "";
+			try {
+				value = elements[0].childNodes[0].nodeValue;
+			} catch (e) {}
+
+			values[i] = value;
+		}
+
+	}
+
+	var startTimeUnits = parseTimeStamp(values[2], "start_time");
+	var	endTimeUnits = parseTimeStamp(values[3], "end_time");
+
+	return {station:values[0], name:values[1], startHour:startTimeUnits[0], startMinute:startTimeUnits[1], endHour:endTimeUnits[0], endMinute:endTimeUnits[1], note:values[4]};
+}
+
+
+function parseTimeStamp(timeStamp, tagName) {
+	var timeStampPattern = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+	if (!timeStampPattern.test(timeStamp)) {
+		throw getInvalidTimeStampMsg(tagName);
+	}
+
+	var timeUnits = timeStamp.split(":");
+	var hour = parseInt(timeUnits[0]);
+	var minute = parseInt(timeUnits[1]);
+
+	return [hour, minute];
+}
+
+
+function validateWorkingPeriod(period) {
+	return validateStation(period.station) + validateStartTime(period.startHour, period.startMinute) + validateEndTime(period.startHour, period.startMinute, period.endHour, period.endMinute);
+}
+
+
+function validateStation(station) {
+	if (stations.indexOf(station) == -1) {
+		return "– " + getInvalidStationMsg();
+	}
+	return "";
+}
+
+
+function validateStartTime(startHour, startMinute) {
+	if (startMinute % minNbrMinutes != 0) {
+		return "– \"start_time\": " + getMinuteIntervalMsg();
+	}
+
+	var lastStartHour = (lastMinute == 0) ? (lastHour - 1):lastHour;
+	var lastStartMinute = (lastMinute == 0) ? (60 - minNbrMinutes):(lastMinute - minNbrMinutes);
+
+	if ((startHour < firstHour || (startHour == firstHour && startMinute < firstMinute)) || (startHour > lastStartHour || (startHour == lastStartHour && startMinute > lastStartMinute))) {
+		return "– \"start_time\": " + getInvalidTimeIntervalMsg(firstHour, firstMinute, lastStartHour, lastStartMinute);
+	}
+
+	return "";
+}
+
+
+function validateEndTime(startHour, startMinute, endHour, endMinute) {
+	if (endMinute % minNbrMinutes != 0) {
+		return "– \"end_time\": " + getMinuteIntervalMsg();
+	}
+
+	var firstEndHour = (startMinute == (60 - minNbrMinutes)) ? (startHour + 1):startHour;
+	var firstEndMinute = (startMinute == (60 - minNbrMinutes)) ? 0:(startMinute + minNbrMinutes);
+
+	if ((endHour < firstEndHour || (endHour == firstEndHour && endMinute < firstEndMinute)) || (endHour > lastHour || (endHour == lastHour && endMinute > lastMinute))) {
+		return "– \"end_time\": " + getInvalidTimeIntervalMsg(firstEndHour, firstEndMinute, lastHour, lastMinute);
+	}
+
+	return "";
+}
+
+
+function getNoPeriodsMsg(filePath) {
+	return "Filen \"" + filePath + "\" innehåller inga arbetspass!";
+}
+
+function getElementNotFoundMsg(tagName) {
+	 return "Elementet " + "\"" + tagName + "\" saknas.\n";
+}
+
+function getParsingErrorMsg(filePath, id) {
 	return "Arbetspass nr. " + id.toString() + " i filen " + "\"" + filePath + "\"" + " kunde inte läsas in.\n\nOrsak: "
 }
 
-function getElementNotFoundString(filePath, id, tag) {
-	 return getFeedbackBaseString(filePath, id) + " Elementet " + "\"" + tag + "\" saknas.";
+function getValidationErrorMsg(filePath, id) {
+	return "Arbetspass nr. " + id.toString() + " i filen " + "\"" + filePath + "\"" + " innehåller otillåtna värden:\n\n"
 }
 
-function getElementEmptyString(filePath, id, tag) {
-	return getFeedbackBaseString(filePath, id) + "Elementet " + "\"" + tag + "\" är tomt.";
-}
-
-function getInvalidValueString(filePath, id, tag) {
-	return getFeedbackBaseString(filePath, id) + "Elementet " + "\"" + tag + "\" har ett ogiltigt värde.";
-}
-
-function getInvalidTimeFormatString(filePath, id, tag) {
-	return getFeedbackBaseString(filePath, id) + "Elementet " + "\"" + tag + "\" har ett ogiltigt format. Tiden måste anges på formatet hh:mm.";
-}
-
-function getMinuteIntervalString(filePath, id, tag) {
-	return getFeedbackBaseString(filePath, id) + "Minuttalet i elementet \"" + tag + "\" måste vara en multipel av " + minNbrMinutes + ".";
-}
-
-function getTimeString(hours, minutes) {
+function getTimeString(hour, minute) {
 	return ((hours < 10) ? ("0" + hours.toString()):hours.toString()) + ":" + ((minutes == 0) ? "00":minutes.toString());
 }
 
-function getInvalidTimeIntervalString(filePath, id, tag, firstHour, firstMinute, lastHour, lastMinute) {
-	return getFeedbackBaseString(filePath, id) + "Elementet " + "\"" + tag + "\" har ett otillåtet värde. Tiden måste infalla mellan " + getTimeString(firstHour, firstMinute) + " och " + getTimeString(lastHour, lastMinute) + ".";
+function getInvalidTimeStampMsg(tagName) {
+	return "Elementet " + "\"" + tagName + "\" har ett ogiltigt format. Tiden måste anges på formatet hh:mm.\n";
+}
+
+function getMinuteIntervalMsg() {
+	return "Minuttalet måste vara en multipel av " + minNbrMinutes + ".\n";
+}
+
+function getInvalidTimeIntervalMsg(firstHour, firstMinute, lastHour, lastMinute) {
+	return "Tiden måste infalla mellan " + getTimeString(firstHour, firstMinute) + " och " + getTimeString(lastHour, lastMinute) + ".\n";
+}
+
+function getInvalidStationMsg() {
+	return "\"working station\"\n";
 }
 
 
