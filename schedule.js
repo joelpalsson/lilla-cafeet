@@ -200,31 +200,41 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
       color = "#C097E7";
   }
 
-  var e = document.getElementsByClassName(column);
-  //console.log("number of cells: " + e.length.toString());
+  var cells = document.getElementsByClassName(column);
+  //console.log("number of cells: " + cells.length.toString());
 
-  var startCell = (startHour * 60 + startMinute - firstHour * 60) / minNbrMinutes;
-  var endCell = ((endHour - firstHour) * 60 + endMinute) / minNbrMinutes - 1;
+  var topCellIndex = (startHour * 60 + startMinute - firstHour * 60) / minNbrMinutes;
+  var bottomCellIndex = ((endHour - firstHour) * 60 + endMinute) / minNbrMinutes - 1;
 
-  for (var i = startCell; i <= endCell; i++) {
-    if (clear == true) {
-      e[i].innerHTML = "";
-      e[i].style.backgroundColor = "white";
+  for (var i = topCellIndex; i <= bottomCellIndex; i++) {
+    if (clear) {
+      cells[i].innerHTML = "";
+      cells[i].style.backgroundColor = "white";
+      if (i != 0) {
+        cells[i].style.borderTop = "none";
+      }
+      if (i != cells.length - 1) {
+        cells[i].style.borderBottom = "none";
+      }
     } else {
-      e[i].style.backgroundColor = color;
+      cells[i].style.backgroundColor = color;
     }
   }
 
-  var nameCell = Math.round(startCell + (endCell - startCell) / 2 - 1).toString();
+  if (!clear) {
+    cells[topCellIndex].style.borderTop = "1px solid black";
+    cells[bottomCellIndex].style.borderBottom = "1px solid black";
 
-  e[nameCell].innerHTML = name.toUpperCase().bold();
+    var nameCellIndex = Math.round(topCellIndex + (bottomCellIndex - topCellIndex) / 2 - 1).toString();
 
-  var noteCell = startCell + 1;
+    cells[nameCellIndex].innerHTML = name.toUpperCase().bold();
 
-  if (noteCell != nameCell) {
-    e[noteCell].innerHTML = note;
+    var noteCellIndex = topCellIndex + 1;
+
+    if (noteCellIndex != nameCellIndex) {
+      cells[noteCellIndex].innerHTML = note;
+    }
   }
-
   /*
   console.log("station: " + station);
   console.log("column: " + column);
@@ -236,8 +246,8 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
   console.log("endMinute: " + endMinute.toString());
   console.log("firstHour: " + firstHour.toString());
   console.log("minNbrMinutes: " + minNbrMinutes.toString());
-  console.log("startCell: " + startCell.toString());
-  console.log("endCell: " + endCell.toString());
+  console.log("topCellIndex: " + topCellIndex.toString());
+  console.log("bottomCellIndex: " + bottomCellIndex.toString());
   console.log("nameCell: " + nameCell);
   */
 }
