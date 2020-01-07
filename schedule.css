@@ -1,201 +1,207 @@
 /* ------ general ------ */
 
 body {
-	font-family: Calibri;
-	text-align: center;
+  font-family: Calibri;
+  text-align: center;
 }
 
 table {
-	border-collapse: collapse;
-	width:94%;
-	margin-left:1%;
-	margin-right:5%;
+  border-collapse: collapse;
+  width: 94%;
+  margin-left: 1%;
+  margin-right: 5%;
 }
-
 
 /* ------ header ------ */
 
 th#header {
-	padding: 30px;
+  padding: 30px;
 }
 
 #date {
-	font-size: 40px;
-	width: 420px;
+  font-size: 40px;
+  width: 420px;
 }
 
-#arrow-left, #arrow-right, #date {
-	vertical-align: middle;
-	display: inline-block;
-	cursor: pointer;
+#arrow-left,
+#arrow-right,
+#date {
+  vertical-align: middle;
+  display: inline-block;
+  cursor: pointer;
 }
-
 
 /* ------ time indication ------ */
 
 col#timeindication-col {
-	width: 30px;
+  width: 30px;
 }
 
 td.timeindication {
-	font-weight: bold;
+  font-weight: bold;
 }
-
 
 /* ------ time scale ------ */
 
 col#timescale-col-1 {
-	width: 4px;
+  width: 4px;
 }
 
 col#timescale-col-2 {
-	width: 8px;
+  width: 8px;
 }
 
-.timescale.hour, .timescale.halfhour {
-	border-bottom: 1px solid black;
+.timescale.hour,
+.timescale.halfhour {
+  border-bottom: 1px solid black;
 }
-
 
 /* ------ time staple ------ */
 
 #timestaple-col {
-	width: 90px;
+  width: 90px;
 }
 
 #timestaple {
-	position: relative;	
-	vertical-align: middle;
-	padding: 0px;
-	border: 1px solid black;
+  position: relative;
+  vertical-align: middle;
+  padding: 0px;
+  border: 1px solid black;
 }
 
 #time {
-	position: absolute;
-	z-index: -1;
-	bottom: 0px;
-	background-color: #7FFF78;
+  position: absolute;
+  z-index: -1;
+  bottom: 0px;
+  background-color: #7FFF78;
 }
 
-#am, #lunch, #pm {
-	z-index: 1;
-	font-size: 10.0pt;
-	font-weight: bold;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+#am,
+#lunch,
+#pm {
+  z-index: 1;
+  font-size: 10.0pt;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #lunch {
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
-
 
 /* ------ schedule ------ */
 
 /* columns */
 
 .schedule-col:not(#schedule-col-13) {
-	width: 75px;
+  width: 75px;
 }
 
 #schedule-col-13 {
-	width: 100px;
+  width: 100px;
 }
 
 /* headings */
 
 th.station {
-	vertical-align: top;
-	font-size: 12.0pt;
-	padding-top: 10px;
-	padding-left: 5px;
-	padding-right: 5px;
-	padding-bottom: 5px;
-	border: 1px solid black;
+  vertical-align: top;
+  font-size: 12.0pt;
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  border: 1px solid black;
 }
 
 th.floor {
-	font-size: 8.0pt;
-	padding: 3px;
-	border: 1px solid black;
+  font-size: 8.0pt;
+  padding: 3px;
+  border: 1px solid black;
 }
 
-.cleaning div, .baking div, .serving div, .counter div, .washing div, .catering div {
-	padding-bottom: 30px;
+.cleaning div,
+.baking div,
+.serving div,
+.counter div,
+.washing div,
+.catering div {
+  padding-bottom: 30px;
 }
 
-.laundry div, .individual div {
-	padding-bottom: 10px;
+.laundry div,
+.individual div {
+  padding-bottom: 10px;
 }
 
 .sandwiches div {
-	padding-bottom: 0px;
+  padding-bottom: 0px;
 }
-
 
 /* cells */
 
-td.cell, td#bottom {
-	height: 14px;
+td.cell,
+td#bottom {
+  height: 14px;
 }
 
-td.cell {	
-	font-size: 8.5pt;
-	border-left: 1px solid black;
-	border-right: 1px solid black;
+td.cell {
+  font-size: 8.5pt;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
 }
 
 #schedule-row-1 td.cell {
-	border-top: 1px solid black;
+  border-top: 1px solid black;
 }
 
 #schedule-row-28 td.cell {
-	border-bottom: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 /* colors */
 
 th.laundry {
-	background-color: #C4BD97;
+  background-color: #C4BD97;
 }
 
 th.cleaning {
-	background-color: #808080;
+  background-color: #808080;
 }
 
 th.baking {
-	background-color: #FFFF0B;
+  background-color: #FFFF0B;
 }
 
 th.sandwiches {
-	background-color: #18C1FF;
+  background-color: #18C1FF;
 }
 
 th.serving {
-	background-color: #FB00FF;
+  background-color: #FB00FF;
 }
 
 th.counter {
-	background-color: #00B050;
+  background-color: #00B050;
 }
 
 th.washing {
-	background-color: #FB0005;
+  background-color: #FB0005;
 }
 
 th.catering {
-	background-color: #FFC000;
+  background-color: #FFC000;
 }
 
 th.individual {
-	background-color: #C097E7;
+  background-color: #C097E7;
 }
 
 /* images */
 
 img {
-    height: 55px;
-    width: 55px;
+  height: 55px;
+  width: 55px;
 }
