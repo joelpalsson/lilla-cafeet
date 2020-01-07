@@ -13,6 +13,7 @@ var stations = [
   "catering",
   "individual"
 ];
+
 var firstHour = 9;
 var firstMinute = 0;
 var lastHour = 16;
@@ -22,6 +23,57 @@ var minNbrMinutes = 15;
 var today;
 var xmlDoc;
 
+/* ------ initialization ------ */
+
+window.onload = function initiate() {
+  today = new Date();
+  generateDay(today);
+  adjustTimeStapleSections();
+  fillTimeStaple();
+  runTimeStaple();
+}
+
+function generateDay(today) {
+  clearSchedule();
+  generateDateHeader(today);
+
+  switch (today.getDay()) {
+    case 1: // monday
+      loadXML("data/monday.xml");
+      break;
+    case 2: // tuesday
+      loadXML("data/tuesday.xml");
+      break;
+    case 3: // wednesday
+      loadXML("data/wednesday.xml");
+      break;
+    case 4: // thursday
+      loadXML("data/thursday.xml");
+      break;
+    case 5: // friday
+      loadXML("data/friday.xml");
+  }
+}
+
+function nextDay() {
+  today.setDate(today.getDate() + 1);
+  generateDay(today);
+}
+
+function prevDay() {
+  today.setDate(today.getDate() - 1);
+  generateDay(today);
+}
+
+function openUpdateWindow() {
+  updateWindow = window.open(
+    "update.html",
+    "_blank",
+    "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=650"
+  );
+}
+
+/* ------ time staple ------ */
 
 function fillTimeStaple() {
   var timeStapleHeight = parseInt(document.getElementById("timestaple").clientHeight);
@@ -87,6 +139,8 @@ function runTimeStaple() {
     }
   }
 }
+
+/* ------ schedule ------ */
 
 function fillCells(station, name, note, startHour, startMinute, endHour, endMinute, clear) {
   var column;
@@ -188,6 +242,27 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
   */
 }
 
+function clearWorkingPeriod(station, period) {
+  var startHour;
+  var endHour;
+
+  switch (period) {
+    case "am":
+      startHour = 9;
+      endHour = 12;
+      break;
+    case "lunch":
+      startHour = 12;
+      endHour = 13;
+      break;
+    case "pm":
+      startHour = 13;
+      endHour = 16;
+  }
+
+  fillCells(station, "", "", startHour, 0, endHour, 0, true);
+}
+
 function clearSchedule() {
   for (var i = 0; i < stations.length; i++) {
     fillCells(stations[i], "", "", firstHour, 0, lastHour, 0, true);
@@ -225,6 +300,8 @@ function generateDateHeader(today) {
   document.getElementById("date").innerHTML = weekday + " " + date + " " + month;
 }
 
+/* ------ input data handling ------ */
+
 function loadXML(filePath) {
   var xhttp = new XMLHttpRequest();
 
@@ -235,7 +312,7 @@ function loadXML(filePath) {
     //console.log("state changed! - readyState: " + this.readyState, ", status: " + this.status);
     if (this.readyState == 4) {
       if (this.status == 0) {
-        alert("The file \"" + filePath + " could not be found!");
+        alert("The file \"" + filePath + "\"" + " could not be found!");
       } else if (this.status == 200) {
         parseXML(this.responseXML, filePath);
       }
@@ -404,73 +481,4 @@ function getInvalidTimeIntervalMsg(firstHour, firstMinute, lastHour, lastMinute)
 
 function getInvalidStationMsg() {
   return "\"working station\"\n";
-}
-
-function generateDay(today) {
-  clearSchedule();
-  generateDateHeader(today);
-
-  switch (today.getDay()) {
-    case 1: // monday
-      loadXML("data/monday.xml");
-      break;
-    case 2: // tuesday
-      loadXML("data/tuesday.xml");
-      break;
-    case 3: // wednesday
-      loadXML("data/wednesday.xml");
-      break;
-    case 4: // thursday
-      loadXML("data/thursday.xml");
-      break;
-    case 5: // friday
-      loadXML("data/friday.xml");
-  }
-}
-
-function clearWorkingPeriod(station, period) {
-  var startHour;
-  var endHour;
-
-  switch (period) {
-    case "am":
-      startHour = 9;
-      endHour = 12;
-      break;
-    case "lunch":
-      startHour = 12;
-      endHour = 13;
-      break;
-    case "pm":
-      startHour = 13;
-      endHour = 16;
-  }
-
-  fillCells(station, "", "", startHour, 0, endHour, 0, true);
-}
-
-function openUpdateWindow() {
-  updateWindow = window.open(
-    "update.html",
-    "_blank",
-    "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=650"
-  );
-}
-
-function nextDay() {
-  today.setDate(today.getDate() + 1);
-  generateDay(today);
-}
-
-function prevDay() {
-  today.setDate(today.getDate() - 1);
-  generateDay(today);
-}
-
-window.onload = function initiate() {
-  today = new Date();
-  generateDay(today);
-  adjustTimeStapleSections();
-  fillTimeStaple();
-  runTimeStaple();
 }
