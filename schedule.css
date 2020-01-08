@@ -10,6 +10,7 @@ table {
   width: 94%;
   margin-left: 1%;
   margin-right: 5%;
+  table-layout: fixed;
 }
 
 /* ------ header ------ */
@@ -38,6 +39,7 @@ col#timeindication-col {
 }
 
 td.timeindication {
+  font-size: 10.0pt;
   font-weight: bold;
 }
 
@@ -94,6 +96,12 @@ col#timescale-col-2 {
 
 /* ------ schedule ------ */
 
+/* rows */
+
+tr.schedule-row, tr#bottom-row {
+  height: 16px;
+}
+
 /* columns */
 
 .schedule-col:not(#schedule-col-13) {
@@ -142,15 +150,17 @@ th.floor {
 
 /* cells */
 
-td.cell,
-td#bottom {
-  height: 14px;
-}
-
 td.cell {
-  font-size: 8.5pt;
   border-left: 1px solid black;
   border-right: 1px solid black;
+}
+
+td.cell div {
+  height: 14px;
+  font-size: 8.5pt;
+  position: relative;
+  top: 7px;
+  overflow: hidden;
 }
 
 #schedule-row-1 td.cell {

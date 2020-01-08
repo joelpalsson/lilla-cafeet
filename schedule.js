@@ -227,7 +227,7 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
 
     var nameCellIndex = Math.round(topCellIndex + (bottomCellIndex - topCellIndex) / 2 - 1).toString();
 
-    cells[nameCellIndex].innerHTML = name.toUpperCase().bold();
+    cells[nameCellIndex].innerHTML = "<div>" + name.toUpperCase().bold() + "</div>";
 
     var noteCellIndex = topCellIndex + 1;
 
