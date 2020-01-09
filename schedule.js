@@ -210,10 +210,10 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
     if (clear) {
       cells[i].innerHTML = "";
       cells[i].style.backgroundColor = "white";
-      if (i != 0) {
+      if (cells[i].parentNode.id != "schedule-row-1") {
         cells[i].style.borderTop = "none";
       }
-      if (i != cells.length - 1) {
+      if (cells[i].parentNode.id != "schedule-row-28") {
         cells[i].style.borderBottom = "none";
       }
     } else {
