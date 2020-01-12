@@ -14,11 +14,11 @@ var stations = [
   "individual"
 ];
 
-var firstHour = 9;
-var firstMinute = 0;
-var lastHour = 16;
-var lastMinute = 0;
-var minNbrMinutes = 15;
+var dayStartHour = 9;
+var dayStartMinute = 0;
+var dayEndHour = 16;
+var dayEndMinute = 0;
+var timeslotLength = 15;
 
 var today;
 var xmlDoc;
@@ -98,7 +98,7 @@ function adjustTimeStapleSections() {
 
 function runTimeStaple() {
   var defaultStapleHeight = parseInt(document.getElementById("timestaple").clientHeight) + 1;
-  var totalNbrMinutes = (lastHour - firstHour) * 60;
+  var totalNbrMinutes = (dayEndHour - dayStartHour) * 60;
 
   var id = setInterval(initiateTimeStaple, 1000);
 
@@ -109,11 +109,11 @@ function runTimeStaple() {
     var currentMinute = currentDate.getMinutes();
     var currentSecond = currentDate.getSeconds();
 
-    if (currentHour >= firstHour && currentHour <= lastHour) {
+    if (currentHour >= dayStartHour && currentHour <= dayEndHour) {
 
       clearInterval(id);
 
-      var remainingNbrMinutes = (lastHour - currentHour) * 60 - currentMinute;
+      var remainingNbrMinutes = (dayEndHour - currentHour) * 60 - currentMinute;
       var stapleHeight = remainingNbrMinutes / totalNbrMinutes * defaultStapleHeight;
       document.getElementById("time").style.height = stapleHeight + "px";
 
@@ -127,7 +127,7 @@ function runTimeStaple() {
 
         if (stapleHeight > 0) {
           if (currentSecond == 0) {
-            remainingNbrMinutes = (lastHour - currentHour) * 60 - currentMinute;
+            remainingNbrMinutes = (dayEndHour - currentHour) * 60 - currentMinute;
             stapleHeight = remainingNbrMinutes / totalNbrMinutes * defaultStapleHeight;
             document.getElementById("time").style.height = stapleHeight + "px";
           }
@@ -142,7 +142,7 @@ function runTimeStaple() {
 
 /* ------ schedule ------ */
 
-function fillCells(station, name, note, startHour, startMinute, endHour, endMinute, clear) {
+function updateTimeslots(station, name, note, startHour, startMinute, endHour, endMinute, clear) {
   var column;
   var color;
 
@@ -200,39 +200,39 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
       color = "#C097E7";
   }
 
-  var cells = document.getElementsByClassName(column);
-  //console.log("number of cells: " + cells.length.toString());
+  var timeslots = document.getElementsByClassName(column);
+  //console.log("number of timeslots: " + timeslots.length.toString());
 
-  var topCellIndex = (startHour * 60 + startMinute - firstHour * 60) / minNbrMinutes;
-  var bottomCellIndex = ((endHour - firstHour) * 60 + endMinute) / minNbrMinutes - 1;
+  var firstTimeslotIndex = (startHour * 60 + startMinute - dayStartHour * 60) / timeslotLength;
+  var lastTimeslotIndex = ((endHour - dayStartHour) * 60 + endMinute) / timeslotLength - 1;
 
-  for (var i = topCellIndex; i <= bottomCellIndex; i++) {
+  for (var i = firstTimeslotIndex; i <= lastTimeslotIndex; i++) {
     if (clear) {
-      cells[i].innerHTML = "";
-      cells[i].style.backgroundColor = "white";
-      if (cells[i].parentNode.id != "schedule-row-1") {
-        cells[i].style.borderTop = "none";
+      timeslots[i].innerHTML = "";
+      timeslots[i].style.backgroundColor = "white";
+      if (timeslots[i].parentNode.id != "schedule-row-1") {
+        timeslots[i].style.borderTop = "none";
       }
-      if (cells[i].parentNode.id != "schedule-row-28") {
-        cells[i].style.borderBottom = "none";
+      if (timeslots[i].parentNode.id != "schedule-row-28") {
+        timeslots[i].style.borderBottom = "none";
       }
     } else {
-      cells[i].style.backgroundColor = color;
+      timeslots[i].style.backgroundColor = color;
     }
   }
 
   if (!clear) {
-    cells[topCellIndex].style.borderTop = "1px solid black";
-    cells[bottomCellIndex].style.borderBottom = "1px solid black";
+    timeslots[firstTimeslotIndex].style.borderTop = "1px solid black";
+    timeslots[lastTimeslotIndex].style.borderBottom = "1px solid black";
 
-    var nameCellIndex = Math.round(topCellIndex + (bottomCellIndex - topCellIndex) / 2 - 1).toString();
+    var nameTimeslotIndex = Math.round(firstTimeslotIndex + (lastTimeslotIndex - firstTimeslotIndex) / 2 - 1).toString();
 
-    cells[nameCellIndex].innerHTML = "<div>" + name.toUpperCase().bold() + "</div>";
+    timeslots[nameTimeslotIndex].innerHTML = "<div>" + name.toUpperCase().bold() + "</div>";
 
-    var noteCellIndex = topCellIndex + 1;
+    var noteTimeslotIndex = firstTimeslotIndex + 1;
 
-    if (noteCellIndex != nameCellIndex) {
-      cells[noteCellIndex].innerHTML = note;
+    if (noteTimeslotIndex != nameTimeslotIndex) {
+      timeslots[noteTimeslotIndex].innerHTML = note;
     }
   }
   /*
@@ -244,11 +244,11 @@ function fillCells(station, name, note, startHour, startMinute, endHour, endMinu
   console.log("startMinute: " + startMinute.toString());
   console.log("endHour: " + endHour.toString());
   console.log("endMinute: " + endMinute.toString());
-  console.log("firstHour: " + firstHour.toString());
-  console.log("minNbrMinutes: " + minNbrMinutes.toString());
-  console.log("topCellIndex: " + topCellIndex.toString());
-  console.log("bottomCellIndex: " + bottomCellIndex.toString());
-  console.log("nameCell: " + nameCell);
+  console.log("dayStartHour: " + dayStartHour.toString());
+  console.log("timeslotLength: " + timeslotLength.toString());
+  console.log("firstTimeslotIndex: " + firstTimeslotIndex.toString());
+  console.log("lastTimeslotIndex: " + lastTimeslotIndex.toString());
+  console.log("nameTimeslotIndex: " + noteTimeslotIndex.toString());
   */
 }
 
@@ -270,12 +270,12 @@ function clearWorkingPeriod(station, period) {
       endHour = 16;
   }
 
-  fillCells(station, "", "", startHour, 0, endHour, 0, true);
+  updateTimeslots(station, "", "", startHour, 0, endHour, 0, true);
 }
 
 function clearSchedule() {
   for (var i = 0; i < stations.length; i++) {
-    fillCells(stations[i], "", "", firstHour, 0, lastHour, 0, true);
+    updateTimeslots(stations[i], "", "", dayStartHour, 0, dayEndHour, 0, true);
   }
 }
 
@@ -358,7 +358,7 @@ function parseXML(xmlDoc, filePath) {
 
     console.log(period);
 
-    fillCells(period.station, period.name, period.note, period.startHour,
+    updateTimeslots(period.station, period.name, period.note, period.startHour,
       period.startMinute, period.endHour, period.endMinute, false);
   }
 }
@@ -426,32 +426,32 @@ function validateStation(station) {
 }
 
 function validateStartTime(startHour, startMinute) {
-  if (startMinute % minNbrMinutes != 0) {
+  if (startMinute % timeslotLength != 0) {
     return "– \"start_time\": " + getMinuteIntervalMsg();
   }
 
-  var lastStartHour = (lastMinute == 0) ? (lastHour - 1) : lastHour;
-  var lastStartMinute = (lastMinute == 0) ? (60 - minNbrMinutes) : (lastMinute - minNbrMinutes);
+  var lastStartHour = (dayEndMinute == 0) ? (dayEndHour - 1) : dayEndHour;
+  var lastStartMinute = (dayEndMinute == 0) ? (60 - timeslotLength) : (dayEndMinute - timeslotLength);
 
-  if ((startHour < firstHour || (startHour == firstHour && startMinute < firstMinute)) ||
+  if ((startHour < dayStartHour || (startHour == dayStartHour && startMinute < dayStartMinute)) ||
     (startHour > lastStartHour || (startHour == lastStartHour && startMinute > lastStartMinute))) {
-    return "– \"start_time\": " + getInvalidTimeIntervalMsg(firstHour, firstMinute, lastStartHour, lastStartMinute);
+    return "– \"start_time\": " + getInvalidTimeIntervalMsg(dayStartHour, dayStartMinute, lastStartHour, lastStartMinute);
   }
 
   return "";
 }
 
 function validateEndTime(startHour, startMinute, endHour, endMinute) {
-  if (endMinute % minNbrMinutes != 0) {
+  if (endMinute % timeslotLength != 0) {
     return "– \"end_time\": " + getMinuteIntervalMsg();
   }
 
-  var firstEndHour = (startMinute == (60 - minNbrMinutes)) ? (startHour + 1) : startHour;
-  var firstEndMinute = (startMinute == (60 - minNbrMinutes)) ? 0 : (startMinute + minNbrMinutes);
+  var firstEndHour = (startMinute == (60 - timeslotLength)) ? (startHour + 1) : startHour;
+  var firstEndMinute = (startMinute == (60 - timeslotLength)) ? 0 : (startMinute + timeslotLength);
 
   if ((endHour < firstEndHour || (endHour == firstEndHour && endMinute < firstEndMinute)) ||
-    (endHour > lastHour || (endHour == lastHour && endMinute > lastMinute))) {
-    return "– \"end_time\": " + getInvalidTimeIntervalMsg(firstEndHour, firstEndMinute, lastHour, lastMinute);
+    (endHour > dayEndHour || (endHour == dayEndHour && endMinute > dayEndMinute))) {
+    return "– \"end_time\": " + getInvalidTimeIntervalMsg(firstEndHour, firstEndMinute, dayEndHour, dayEndMinute);
   }
 
   return "";
@@ -482,11 +482,11 @@ function getInvalidTimeStampMsg(tagName) {
 }
 
 function getMinuteIntervalMsg() {
-  return "Minuttalet måste vara en multipel av " + minNbrMinutes + ".\n";
+  return "Minuttalet måste vara en multipel av " + timeslotLength + ".\n";
 }
 
-function getInvalidTimeIntervalMsg(firstHour, firstMinute, lastHour, lastMinute) {
-  return "Tiden måste infalla mellan " + getTimeString(firstHour, firstMinute) + " och " + getTimeString(lastHour, lastMinute) + ".\n";
+function getInvalidTimeIntervalMsg(dayStartHour, dayStartMinute, dayEndHour, dayEndMinute) {
+  return "Tiden måste infalla mellan " + getTimeString(dayStartHour, dayStartMinute) + " och " + getTimeString(dayEndHour, dayEndMinute) + ".\n";
 }
 
 function getInvalidStationMsg() {

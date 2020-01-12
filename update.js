@@ -78,7 +78,7 @@ function updateButtonClick() {
   } else if (startHour > endHour) {
     alert("Ange en sluttid som infaller efter starttiden");
   } else {
-    window.opener.fillCells(station, name, note, startHour, startMinute, endHour, endMinute, false);
+    window.opener.updateTimeslots(station, name, note, startHour, startMinute, endHour, endMinute, false);
   }
 
 }
