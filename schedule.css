@@ -64,33 +64,47 @@ col#timescale-col-2 {
   width: 90px;
 }
 
-#timestaple {
+#timestaple-cell {
   position: relative;
   vertical-align: middle;
   padding: 0px;
   border: 1px solid black;
 }
 
-#time {
+#timestaple, #timestaple-extension {
   position: absolute;
-  z-index: -1;
-  bottom: 0px;
   background-color: #7FFF78;
 }
 
-#am,
-#lunch,
-#pm {
-  z-index: 1;
-  font-size: 10.0pt;
-  font-weight: bold;
+#timestaple {
+  width: 100%;
+  height: 100%;
+  bottom: 0px;
+  left: 0px;
+}
+
+#timestaple-extension {
+  height: 2px;
+}
+
+#timestaple-sections {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: table-cell;
+}
+
+#timestaple-sections div {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 10.0pt;
+  font-weight: bold;
 }
 
-#lunch {
-  border-top: 1px solid black;
+#am, #lunch {
   border-bottom: 1px solid black;
 }
 

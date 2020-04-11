@@ -18,7 +18,9 @@ var dayStartHour = 9;
 var dayStartMinute = 0;
 var dayEndHour = 16;
 var dayEndMinute = 0;
-var timeslotLength = 15;
+var lunchStartHour = 12;
+var lunchEndHour = 13;
+var timeslotMinutes = 15;
 
 var today;
 var xmlDoc;
@@ -28,8 +30,8 @@ var xmlDoc;
 window.onload = function initiate() {
   today = new Date();
   generateDay(today);
-  adjustTimeStapleSections();
-  fillTimeStaple();
+  setupTimeStapleSections();
+  setupTimeStapleExtension();
   runTimeStaple();
 }
 
@@ -75,29 +77,27 @@ function openUpdateWindow() {
 
 /* ------ time staple ------ */
 
-function fillTimeStaple() {
-  var timeStapleHeight = parseInt(document.getElementById("timestaple").clientHeight);
-  var timeStapleWidth = parseInt(document.getElementById("timestaple").clientWidth);
-  document.getElementById("time").style.height = timeStapleHeight.toString() + "px";
-  document.getElementById("time").style.width = timeStapleWidth.toString() + "px";
+function setupTimeStapleExtension() {
+  var timeStapleExtensionWidth = document.getElementById("timestaple").clientWidth;
+  for (column of document.getElementsByClassName("schedule-col")) {
+    timeStapleExtensionWidth += column.clientWidth;
+  }
+  document.getElementById("timestaple-extension").style.width = timeStapleExtensionWidth + "px";
 }
 
-function adjustTimeStapleSections() {
-  var minTimePeriodHeight = parseInt(document.getElementById("minTimePeriod").clientHeight);
-  //console.log("minTimePeriodHeight:" + minTimePeriodHeight);
-  document.getElementById("am").style.height = 1 * minTimePeriodHeight + "px";
-  document.getElementById("am").style.paddingTop = 5 * minTimePeriodHeight + "px";
-  document.getElementById("am").style.paddingBottom = 6 * minTimePeriodHeight + "px";
-  document.getElementById("lunch").style.height = 1 * minTimePeriodHeight + "px";
-  document.getElementById("lunch").style.paddingTop = 1 * minTimePeriodHeight + "px";
-  document.getElementById("lunch").style.paddingBottom = 2 * minTimePeriodHeight + "px";
-  document.getElementById("pm").style.height = 1 * minTimePeriodHeight + "px";
-  document.getElementById("pm").style.paddingTop = 5 * minTimePeriodHeight + "px";
-  document.getElementById("pm").style.paddingBottom = 6 * minTimePeriodHeight + "px";
+function setupTimeStapleSections() {
+  var timeslotHeight = parseInt(document.getElementById("timeslot").clientHeight);
+  var borderHeight = 1;
+  var nbrTimeslotsAm = ((lunchStartHour - dayStartHour) * 60 / timeslotMinutes);
+  var nbrTimeslotsLunch = ((lunchEndHour - lunchStartHour) * 60 / timeslotMinutes);
+  var nbrTimeslotsPm = ((dayEndHour - lunchEndHour) * 60  / timeslotMinutes);
+  document.getElementById("am").style.height = nbrTimeslotsAm * timeslotHeight - borderHeight + "px";
+  document.getElementById("lunch").style.height = nbrTimeslotsLunch * timeslotHeight - borderHeight + "px";
+  document.getElementById("pm").style.height = nbrTimeslotsPm * timeslotHeight - borderHeight + "px";
 }
 
 function runTimeStaple() {
-  var defaultStapleHeight = parseInt(document.getElementById("timestaple").clientHeight) + 1;
+  var defaultStapleHeight = parseInt(document.getElementById("timestaple").clientHeight);
   var totalNbrMinutes = (dayEndHour - dayStartHour) * 60;
 
   var id = setInterval(initiateTimeStaple, 1000);
@@ -115,7 +115,7 @@ function runTimeStaple() {
 
       var remainingNbrMinutes = (dayEndHour - currentHour) * 60 - currentMinute;
       var stapleHeight = remainingNbrMinutes / totalNbrMinutes * defaultStapleHeight;
-      document.getElementById("time").style.height = stapleHeight + "px";
+      document.getElementById("timestaple").style.height = stapleHeight + "px";
 
       id = setInterval(updateTimeStaple, 1000);
 
@@ -129,7 +129,7 @@ function runTimeStaple() {
           if (currentSecond == 0) {
             remainingNbrMinutes = (dayEndHour - currentHour) * 60 - currentMinute;
             stapleHeight = remainingNbrMinutes / totalNbrMinutes * defaultStapleHeight;
-            document.getElementById("time").style.height = stapleHeight + "px";
+            document.getElementById("timestaple").style.height = stapleHeight + "px";
           }
         } else {
           clearInterval(id);
@@ -203,8 +203,8 @@ function updateTimeslots(station, name, note, startHour, startMinute, endHour, e
   var timeslots = document.getElementsByClassName(column);
   //console.log("number of timeslots: " + timeslots.length.toString());
 
-  var firstTimeslotIndex = (startHour * 60 + startMinute - dayStartHour * 60) / timeslotLength;
-  var lastTimeslotIndex = ((endHour - dayStartHour) * 60 + endMinute) / timeslotLength - 1;
+  var firstTimeslotIndex = (startHour * 60 + startMinute - dayStartHour * 60) / timeslotMinutes;
+  var lastTimeslotIndex = ((endHour - dayStartHour) * 60 + endMinute) / timeslotMinutes - 1;
 
   for (var i = firstTimeslotIndex; i <= lastTimeslotIndex; i++) {
     if (clear) {
@@ -245,7 +245,7 @@ function updateTimeslots(station, name, note, startHour, startMinute, endHour, e
   console.log("endHour: " + endHour.toString());
   console.log("endMinute: " + endMinute.toString());
   console.log("dayStartHour: " + dayStartHour.toString());
-  console.log("timeslotLength: " + timeslotLength.toString());
+  console.log("timeslotMinutes: " + timeslotMinutes.toString());
   console.log("firstTimeslotIndex: " + firstTimeslotIndex.toString());
   console.log("lastTimeslotIndex: " + lastTimeslotIndex.toString());
   console.log("nameTimeslotIndex: " + noteTimeslotIndex.toString());
@@ -258,16 +258,16 @@ function clearWorkingPeriod(station, period) {
 
   switch (period) {
     case "am":
-      startHour = 9;
-      endHour = 12;
+      startHour = dayStartHour
+      endHour = lunchStartHour;
       break;
     case "lunch":
-      startHour = 12;
-      endHour = 13;
+      startHour = lunchStartHour;
+      endHour = lunchEndHour;
       break;
     case "pm":
-      startHour = 13;
-      endHour = 16;
+      startHour = lunchEndHour;
+      endHour = dayEndHour;
   }
 
   updateTimeslots(station, "", "", startHour, 0, endHour, 0, true);
@@ -426,12 +426,12 @@ function validateStation(station) {
 }
 
 function validateStartTime(startHour, startMinute) {
-  if (startMinute % timeslotLength != 0) {
+  if (startMinute % timeslotMinutes != 0) {
     return "– \"start_time\": " + getMinuteIntervalMsg();
   }
 
   var lastStartHour = (dayEndMinute == 0) ? (dayEndHour - 1) : dayEndHour;
-  var lastStartMinute = (dayEndMinute == 0) ? (60 - timeslotLength) : (dayEndMinute - timeslotLength);
+  var lastStartMinute = (dayEndMinute == 0) ? (60 - timeslotMinutes) : (dayEndMinute - timeslotMinutes);
 
   if ((startHour < dayStartHour || (startHour == dayStartHour && startMinute < dayStartMinute)) ||
     (startHour > lastStartHour || (startHour == lastStartHour && startMinute > lastStartMinute))) {
@@ -442,12 +442,12 @@ function validateStartTime(startHour, startMinute) {
 }
 
 function validateEndTime(startHour, startMinute, endHour, endMinute) {
-  if (endMinute % timeslotLength != 0) {
+  if (endMinute % timeslotMinutes != 0) {
     return "– \"end_time\": " + getMinuteIntervalMsg();
   }
 
-  var firstEndHour = (startMinute == (60 - timeslotLength)) ? (startHour + 1) : startHour;
-  var firstEndMinute = (startMinute == (60 - timeslotLength)) ? 0 : (startMinute + timeslotLength);
+  var firstEndHour = (startMinute == (60 - timeslotMinutes)) ? (startHour + 1) : startHour;
+  var firstEndMinute = (startMinute == (60 - timeslotMinutes)) ? 0 : (startMinute + timeslotMinutes);
 
   if ((endHour < firstEndHour || (endHour == firstEndHour && endMinute < firstEndMinute)) ||
     (endHour > dayEndHour || (endHour == dayEndHour && endMinute > dayEndMinute))) {
@@ -482,7 +482,7 @@ function getInvalidTimeStampMsg(tagName) {
 }
 
 function getMinuteIntervalMsg() {
-  return "Minuttalet måste vara en multipel av " + timeslotLength + ".\n";
+  return "Minuttalet måste vara en multipel av " + timeslotMinutes + ".\n";
 }
 
 function getInvalidTimeIntervalMsg(dayStartHour, dayStartMinute, dayEndHour, dayEndMinute) {
