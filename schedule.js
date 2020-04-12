@@ -473,7 +473,7 @@ function getValidationErrorMsg(filePath, id) {
   return "Arbetspass nr. " + id.toString() + " i filen " + "\"" + filePath + "\"" + " innehåller otillåtna värden:\n\n"
 }
 
-function getTimeString(hour, minute) {
+function getTimeString(hours, minutes) {
   return ((hours < 10) ? ("0" + hours.toString()) : hours.toString()) + ":" + ((minutes == 0) ? "00" : minutes.toString());
 }
 
