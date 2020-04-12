@@ -1,4 +1,4 @@
-var stations = [
+var STATIONS = [
   "laundry",
   "cleaning_upstairs",
   "cleaning_downstairs",
@@ -14,13 +14,13 @@ var stations = [
   "individual"
 ];
 
-var dayStartHour = 9;
-var dayStartMinute = 0;
-var dayEndHour = 16;
-var dayEndMinute = 0;
-var lunchStartHour = 12;
-var lunchEndHour = 13;
-var timeslotMinutes = 15;
+var DAY_START_HOUR = 9;
+var DAY_START_MINUTE = 0;
+var DAY_END_HOUR = 16;
+var DAY_END_MINUTE = 0;
+var LUNCH_START_HOUR = 12;
+var LUNCH_END_HOUR = 13;
+var TIMESLOT_MINUTES = 15;
 
 var today;
 var xmlDoc;
@@ -88,9 +88,9 @@ function setupTimeStapleExtension() {
 function setupTimeStapleSections() {
   var timeslotHeight = parseInt(document.getElementById("timeslot").clientHeight);
   var borderHeight = 1;
-  var nbrTimeslotsAm = ((lunchStartHour - dayStartHour) * 60 / timeslotMinutes);
-  var nbrTimeslotsLunch = ((lunchEndHour - lunchStartHour) * 60 / timeslotMinutes);
-  var nbrTimeslotsPm = ((dayEndHour - lunchEndHour) * 60  / timeslotMinutes);
+  var nbrTimeslotsAm = ((LUNCH_START_HOUR - DAY_START_HOUR) * 60 / TIMESLOT_MINUTES);
+  var nbrTimeslotsLunch = ((LUNCH_END_HOUR - LUNCH_START_HOUR) * 60 / TIMESLOT_MINUTES);
+  var nbrTimeslotsPm = ((DAY_END_HOUR - LUNCH_END_HOUR) * 60  / TIMESLOT_MINUTES);
   document.getElementById("am").style.height = nbrTimeslotsAm * timeslotHeight - borderHeight + "px";
   document.getElementById("lunch").style.height = nbrTimeslotsLunch * timeslotHeight - borderHeight + "px";
   document.getElementById("pm").style.height = nbrTimeslotsPm * timeslotHeight - borderHeight + "px";
@@ -98,7 +98,7 @@ function setupTimeStapleSections() {
 
 function runTimeStaple() {
   var defaultStapleHeight = parseInt(document.getElementById("timestaple").clientHeight);
-  var totalNbrMinutes = (dayEndHour - dayStartHour) * 60;
+  var totalNbrMinutes = (DAY_END_HOUR - DAY_START_HOUR) * 60;
 
   var id = setInterval(initiateTimeStaple, 1000);
 
@@ -109,11 +109,11 @@ function runTimeStaple() {
     var currentMinute = currentDate.getMinutes();
     var currentSecond = currentDate.getSeconds();
 
-    if (currentHour >= dayStartHour && currentHour <= dayEndHour) {
+    if (currentHour >= DAY_START_HOUR && currentHour <= DAY_END_HOUR) {
 
       clearInterval(id);
 
-      var remainingNbrMinutes = (dayEndHour - currentHour) * 60 - currentMinute;
+      var remainingNbrMinutes = (DAY_END_HOUR - currentHour) * 60 - currentMinute;
       var stapleHeight = remainingNbrMinutes / totalNbrMinutes * defaultStapleHeight;
       document.getElementById("timestaple").style.height = stapleHeight + "px";
 
@@ -127,7 +127,7 @@ function runTimeStaple() {
 
         if (stapleHeight > 0) {
           if (currentSecond == 0) {
-            remainingNbrMinutes = (dayEndHour - currentHour) * 60 - currentMinute;
+            remainingNbrMinutes = (DAY_END_HOUR - currentHour) * 60 - currentMinute;
             stapleHeight = remainingNbrMinutes / totalNbrMinutes * defaultStapleHeight;
             document.getElementById("timestaple").style.height = stapleHeight + "px";
           }
@@ -203,8 +203,8 @@ function updateTimeslots(station, name, note, startHour, startMinute, endHour, e
   var timeslots = document.getElementsByClassName(column);
   //console.log("number of timeslots: " + timeslots.length.toString());
 
-  var firstTimeslotIndex = (startHour * 60 + startMinute - dayStartHour * 60) / timeslotMinutes;
-  var lastTimeslotIndex = ((endHour - dayStartHour) * 60 + endMinute) / timeslotMinutes - 1;
+  var firstTimeslotIndex = (startHour * 60 + startMinute - DAY_START_HOUR * 60) / TIMESLOT_MINUTES;
+  var lastTimeslotIndex = ((endHour - DAY_START_HOUR) * 60 + endMinute) / TIMESLOT_MINUTES - 1;
 
   for (var i = firstTimeslotIndex; i <= lastTimeslotIndex; i++) {
     if (clear) {
@@ -244,8 +244,8 @@ function updateTimeslots(station, name, note, startHour, startMinute, endHour, e
   console.log("startMinute: " + startMinute.toString());
   console.log("endHour: " + endHour.toString());
   console.log("endMinute: " + endMinute.toString());
-  console.log("dayStartHour: " + dayStartHour.toString());
-  console.log("timeslotMinutes: " + timeslotMinutes.toString());
+  console.log("DAY_START_HOUR: " + DAY_START_HOUR.toString());
+  console.log("TIMESLOT_MINUTES: " + TIMESLOT_MINUTES.toString());
   console.log("firstTimeslotIndex: " + firstTimeslotIndex.toString());
   console.log("lastTimeslotIndex: " + lastTimeslotIndex.toString());
   console.log("nameTimeslotIndex: " + noteTimeslotIndex.toString());
@@ -258,24 +258,24 @@ function clearWorkingPeriod(station, period) {
 
   switch (period) {
     case "am":
-      startHour = dayStartHour
-      endHour = lunchStartHour;
+      startHour = DAY_START_HOUR
+      endHour = LUNCH_START_HOUR;
       break;
     case "lunch":
-      startHour = lunchStartHour;
-      endHour = lunchEndHour;
+      startHour = LUNCH_START_HOUR;
+      endHour = LUNCH_END_HOUR;
       break;
     case "pm":
-      startHour = lunchEndHour;
-      endHour = dayEndHour;
+      startHour = LUNCH_END_HOUR;
+      endHour = DAY_END_HOUR;
   }
 
   updateTimeslots(station, "", "", startHour, 0, endHour, 0, true);
 }
 
 function clearSchedule() {
-  for (var i = 0; i < stations.length; i++) {
-    updateTimeslots(stations[i], "", "", dayStartHour, 0, dayEndHour, 0, true);
+  for (var i = 0; i < STATIONS.length; i++) {
+    updateTimeslots(STATIONS[i], "", "", DAY_START_HOUR, 0, DAY_END_HOUR, 0, true);
   }
 }
 
@@ -419,39 +419,39 @@ function validateWorkingPeriod(period) {
 }
 
 function validateStation(station) {
-  if (stations.indexOf(station) == -1) {
+  if (STATIONS.indexOf(station) == -1) {
     return "– " + getInvalidStationMsg();
   }
   return "";
 }
 
 function validateStartTime(startHour, startMinute) {
-  if (startMinute % timeslotMinutes != 0) {
+  if (startMinute % TIMESLOT_MINUTES != 0) {
     return "– \"start_time\": " + getMinuteIntervalMsg();
   }
 
-  var lastStartHour = (dayEndMinute == 0) ? (dayEndHour - 1) : dayEndHour;
-  var lastStartMinute = (dayEndMinute == 0) ? (60 - timeslotMinutes) : (dayEndMinute - timeslotMinutes);
+  var lastStartHour = (DAY_END_MINUTE == 0) ? (DAY_END_HOUR - 1) : DAY_END_HOUR;
+  var lastStartMinute = (DAY_END_MINUTE == 0) ? (60 - TIMESLOT_MINUTES) : (DAY_END_MINUTE - TIMESLOT_MINUTES);
 
-  if ((startHour < dayStartHour || (startHour == dayStartHour && startMinute < dayStartMinute)) ||
+  if ((startHour < DAY_START_HOUR || (startHour == DAY_START_HOUR && startMinute < DAY_START_MINUTE)) ||
     (startHour > lastStartHour || (startHour == lastStartHour && startMinute > lastStartMinute))) {
-    return "– \"start_time\": " + getInvalidTimeIntervalMsg(dayStartHour, dayStartMinute, lastStartHour, lastStartMinute);
+    return "– \"start_time\": " + getInvalidTimeIntervalMsg(DAY_START_HOUR, DAY_START_MINUTE, lastStartHour, lastStartMinute);
   }
 
   return "";
 }
 
 function validateEndTime(startHour, startMinute, endHour, endMinute) {
-  if (endMinute % timeslotMinutes != 0) {
+  if (endMinute % TIMESLOT_MINUTES != 0) {
     return "– \"end_time\": " + getMinuteIntervalMsg();
   }
 
-  var firstEndHour = (startMinute == (60 - timeslotMinutes)) ? (startHour + 1) : startHour;
-  var firstEndMinute = (startMinute == (60 - timeslotMinutes)) ? 0 : (startMinute + timeslotMinutes);
+  var firstEndHour = (startMinute == (60 - TIMESLOT_MINUTES)) ? (startHour + 1) : startHour;
+  var firstEndMinute = (startMinute == (60 - TIMESLOT_MINUTES)) ? 0 : (startMinute + TIMESLOT_MINUTES);
 
   if ((endHour < firstEndHour || (endHour == firstEndHour && endMinute < firstEndMinute)) ||
-    (endHour > dayEndHour || (endHour == dayEndHour && endMinute > dayEndMinute))) {
-    return "– \"end_time\": " + getInvalidTimeIntervalMsg(firstEndHour, firstEndMinute, dayEndHour, dayEndMinute);
+    (endHour > DAY_END_HOUR || (endHour == DAY_END_HOUR && endMinute > DAY_END_MINUTE))) {
+    return "– \"end_time\": " + getInvalidTimeIntervalMsg(firstEndHour, firstEndMinute, DAY_END_HOUR, DAY_END_MINUTE);
   }
 
   return "";
@@ -482,11 +482,11 @@ function getInvalidTimeStampMsg(tagName) {
 }
 
 function getMinuteIntervalMsg() {
-  return "Minuttalet måste vara en multipel av " + timeslotMinutes + ".\n";
+  return "Minuttalet måste vara en multipel av " + TIMESLOT_MINUTES + ".\n";
 }
 
-function getInvalidTimeIntervalMsg(dayStartHour, dayStartMinute, dayEndHour, dayEndMinute) {
-  return "Tiden måste infalla mellan " + getTimeString(dayStartHour, dayStartMinute) + " och " + getTimeString(dayEndHour, dayEndMinute) + ".\n";
+function getInvalidTimeIntervalMsg(firstValidHour, firstValidMinute, lastValidHour, lastValidMinute) {
+  return "Tiden måste infalla mellan " + getTimeString(firstValidHour, firstValidMinute) + " och " + getTimeString(lastValidHour, lastValidMinute) + ".\n";
 }
 
 function getInvalidStationMsg() {
